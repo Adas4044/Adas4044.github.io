@@ -3,22 +3,470 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile Card</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>SAILING ADVENTURES - A VINTAGE JOURNEY</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="profile-card">
-        <div class="profile-header">
-            <div class="profile-pic"></div>
-            <h1>Adam Kulikowski</h1>
-            <h3>Sophomore</h2>
-            <h3>Passionate about renewable resources</h2>
-            <p class="major">Computer Science Major</p>
+    <!-- Hero Section with Video Background -->
+    <section class="hero">
+        <video autoplay muted loop class="hero-video">
+            <source src="sailing.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-border">
+                <h1 class="hero-title">ADAM KULIKOWSKI</h1>
+                <p class="hero-subtitle">>>> <span id="typewriter-text"></span> <<<</p>
+                <div class="hero-navigation">
+                    <a href="#experience" class="hero-nav-button">VOYAGE LOG</a>
+                    <a href="#projects" class="hero-nav-button">TREASURES</a>
+                    <a href="#skills" class="hero-nav-button">ARSENAL</a>
+                    <a href="#contact" class="hero-nav-button">CONTACT</a>
+                </div>
+                <a href="#about-panel" class="explore-button">EXPLORE MY VOYAGE</a>
+            </div>
         </div>
-        <div class="profile-body">
-            <p><strong>Hometown:</strong> Peoria, IL</p>
-            <a href="resume.pdf" class="resume-button" target="_blank">View Resume</a>
+        <div class="scroll-indicator">
+            <div class="scroll-arrow"></div>
         </div>
-    </div>
+    </section>
+
+    <!-- About Panel -->
+    <section id="about-panel" class="about">
+        <div class="container">
+            <div class="section-header">
+                <h2>ABOUT THE CAPTAIN</h2>
+                <div class="vintage-divider">
+                    <span>[###]</span>
+                </div>
+            </div>
+            <div class="about-content">
+                <div class="about-text">
+                    <p class="lead">AHOY! WELCOME TO MY DIGITAL VESSEL!</p>
+                    <p>Hi, I'm Adam. I'm passionate about machine learning, computer vision, and software engineering, with experience building real-time tracking systems, wireless hardware solutions, and AI-driven applications. I enjoy working across the stack—from designing APIs and databases to developing front-end interfaces—and I'm especially interested in projects that combine intelligent systems with practical, real-world impact.</p>
+                    <p>Outside of my technical work, I stay involved in campus life through sailing, fencing club and Polish club, and I also love playing pickup soccer whenever I get the chance.</p>
+                </div>
+                <div class="about-image">
+                    <div class="vintage-photo-frame">
+                        <img src="./profile.JPG" alt="Adam Kulikowski - Digital Navigator" class="captain-portrait" onerror="console.log('Image failed to load:', this.src)" />
+                        <div class="photo-caption">VINTAGE PHOTO, CIRCA 2025</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="experience">
+        <div class="container">
+            <div class="section-header">
+                <h2>VOYAGE EXPERIENCE</h2>
+                <div class="vintage-divider">
+                    <span>[###]</span>
+                </div>
+            </div>
+            <div class="experience-timeline">
+                <div class="timeline-item" data-collapsed="true">
+                    <div class="timeline-content">
+                        <div class="timeline-header" onclick="toggleExperience(this)">
+                            <div class="timeline-title">
+                                <h3>SOFTWARE ENGINEERING INTERN</h3>
+                                <span class="company">CATERPILLAR, INC. | PEORIA, IL</span>
+                            </div>
+                            <div class="timeline-period">MAY 2025 - AUG 2025</div>
+                        </div>
+                        <div class="timeline-details">
+                            <p>Developed RESTful API specifications and proxies using Swagger and Apigee, integrating JSON threat limiting, threat protection, rate limiting, and injection prevention policies for large data applications & real-time asset monitoring.</p>
+                            <p>Built an AI-assisted CI/CD pipeline (Python, GitHub Actions, Azure Foundry) with a custom OpenAPI linter and automated proxy validation, reducing spec review time by ~30% and enforcing standards across engineering teams.</p>
+                            <p>Redesigned Cat Central platform during Hackathon, building Angular-based frontend with enhanced machine-integration security and a live maps API dashboard for asset tracking, and site mapping & optimization.</p>
+                            <p>Selected from 70+ interns as winner of Caterpillar U.S. Hackathon to represent Cat USA at Global Hackathon.</p>
+                            <div class="experience-achievements">
+                                <span class="achievement">>>> RESTful APIs & APIGEE</span>
+                                <span class="achievement">>>> AI-ASSISTED CI/CD</span>
+                                <span class="achievement">>>> HACKATHON WINNER</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item" data-collapsed="true">
+                    <div class="timeline-content">
+                        <div class="timeline-header" onclick="toggleExperience(this)">
+                            <div class="timeline-title">
+                                <h3>STUDENT AI RESEARCHER</h3>
+                                <span class="company">DOLPHINGEMMA | ATLANTA, GA</span>
+                            </div>
+                            <div class="timeline-period">APR 2025 - PRESENT</div>
+                        </div>
+                        <div class="timeline-details">
+                            <p>Engineered data aggregation and labeling to train "DolphinGemma", an AI model designed to mimic wild dolphins.</p>
+                            <p>Processed over 3,500+ bioacoustic audio samples (Python, Audacity) to prepare training data for DolphinGemma, ensuring high-quality, structured input for downstream machine learning development.</p>
+                            <p>Featured at Google I/O and highlighted on the Google homepage as a showcase of applied AI.</p>
+                            <div class="experience-achievements">
+                                <span class="achievement">>>> BIOACOUSTIC AI</span>
+                                <span class="achievement">>>> GOOGLE I/O FEATURED</span>
+                                <span class="achievement">>>> 3,500+ AUDIO SAMPLES</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item" data-collapsed="true">
+                    <div class="timeline-content">
+                        <div class="timeline-header" onclick="toggleExperience(this)">
+                            <div class="timeline-title">
+                                <h3>TECHNICAL COFOUNDER & SOFTWARE ENGINEER</h3>
+                                <span class="company">ALLEZ GO | ATLANTA, GA</span>
+                            </div>
+                            <div class="timeline-period">AUG 2024 - PRESENT</div>
+                        </div>
+                        <div class="timeline-details">
+                            <p>Developed a real-time fencing broadcast animation system for tracking the movement of fencing blades for referring & TV.</p>
+                            <p>Used OptiTrack infrared camera input, Python OpenCV for motion tracking & a dynamically tuned Gaussian blur parameter.</p>
+                            <p>Finalist on PBS's Inventure Prize in front of 60,000+ live viewers on TV, winner of Georgia Tech's Create-X program.</p>
+                            <p>Spearheaded $20,000 financing deal for the software to be used in an upcoming fencing related TV production.</p>
+                            <div class="experience-achievements">
+                                <span class="achievement">>>> REAL-TIME MOTION TRACKING</span>
+                                <span class="achievement">>>> PBS INVENTURE FINALIST</span>
+                                <span class="achievement">>>> $20K FINANCING DEAL</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="timeline-item" data-collapsed="true">
+                    <div class="timeline-content">
+                        <div class="timeline-header" onclick="toggleExperience(this)">
+                            <div class="timeline-title">
+                                <h3>SOFTWARE ENGINEERING INTERN</h3>
+                                <span class="company">CATERPILLAR, INC. | PEORIA, IL</span>
+                            </div>
+                            <div class="timeline-period">MAY 2021 - AUG 2021</div>
+                        </div>
+                        <div class="timeline-details">
+                            <p>Designed and implemented Spotter's Guide, an iOS catalog app (SwiftUI, Xcode) for Caterpillar machines, engines, & parts.</p>
+                            <p>Structured JSON machinery datasets, created UI/UX, and published to the App Store (TestFlight, Apple Developer Tools).</p>
+                            <div class="experience-achievements">
+                                <span class="achievement">>>> iOS APP DEVELOPMENT</span>
+                                <span class="achievement">>>> SWIFTUI & XCODE</span>
+                                <span class="achievement">>>> APP STORE PUBLISHED</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects">
+        <div class="container">
+            <div class="section-header">
+                <h2>TREASURE PROJECTS</h2>
+                <div class="vintage-divider">
+                    <span>[###]</span>
+                </div>
+            </div>
+            <div class="projects-grid">
+                <div class="project-card" data-collapsed="true">
+                    <div class="project-header" onclick="toggleProject(this)">
+                        <div class="treasure-chest-main">
+                            <img src="./treasure.jpg" alt="Closed Treasure Chest" class="chest-closed">
+                            <img src="./openchest.png" alt="Open Treasure Chest" class="chest-open">
+                            <div class="treasure-glow"></div>
+                        </div>
+                        <div class="project-title-overlay">
+                            <h3>BIRDIE</h3>
+                        </div>
+                        <div class="project-preview-info">
+                            <div class="project-description">AI-powered golf assistant using AWS services</div>
+                            <div class="project-tech-preview">AWS • AI • HACKATHON</div>
+                        </div>
+                    </div>
+                    <div class="project-details">
+                        <div class="project-tech">AMAZON AWS: S3, LEX, WEB CRAWLER, KENDRA</div>
+                        <p>Planned, designed, and coded an AWS application to help golf enthusiasts interact with AI representations of their favorite players.</p>
+                        <p>Built pipeline using AWS Bedrock for player-specific responses, Lambda for event triggers, S3 for data and conversation storage, Lex for chat, Kendra for indexing and retrieving golf knowledge, and a Python scraper for live stats/news.</p>
+                        <p>Competitively selected for high-profile fintech hackathon by Amazon AWS & Truist and personally recognized by Truist CEO.</p>
+                        <div class="project-links">
+                            <a href="#" class="project-link">[DEMO]</a>
+                            <a href="#" class="project-link">[CODE]</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-collapsed="true">
+                    <div class="project-header" onclick="toggleProject(this)">
+                        <div class="treasure-chest-main">
+                            <img src="./treasure.jpg" alt="Closed Treasure Chest" class="chest-closed">
+                            <img src="./openchest.png" alt="Open Treasure Chest" class="chest-open">
+                            <div class="treasure-glow"></div>
+                        </div>
+                        <div class="project-title-overlay">
+                            <h3>WIRELESS FENCING SYSTEM</h3>
+                        </div>
+                        <div class="project-preview-info">
+                            <div class="project-description">Real-time wireless scoring system for fencing competitions</div>
+                            <div class="project-tech-preview">C++ • ARDUINO • HARDWARE</div>
+                        </div>
+                    </div>
+                    <div class="project-details">
+                        <div class="project-tech">C++, CIRCUIT THEORY, CAD, ARDUINO, SYSTEM DESIGN</div>
+                        <p>Planned, designed, and coded a wireless scoring system for épée fencers to use in place of expensive wired ones at my fencing club.</p>
+                        <p>Utilized Arduino nanos, voltage setup converter, and REED relays to improve system latency from 1-2 seconds to <1ms.</p>
+                        <p>Saved my local fencing club $3,000 in equipment costs and was used by over 50 fencers to conduct fencing drills.</p>
+                        <div class="project-links">
+                            <a href="#" class="project-link">[DEMO]</a>
+                            <a href="#" class="project-link">[CODE]</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card" data-collapsed="true">
+                    <div class="project-header" onclick="toggleProject(this)">
+                        <div class="treasure-chest-main">
+                            <img src="./treasure.jpg" alt="Closed Treasure Chest" class="chest-closed">
+                            <img src="./openchest.png" alt="Open Treasure Chest" class="chest-open">
+                            <div class="treasure-glow"></div>
+                        </div>
+                        <div class="project-title-overlay">
+                            <h3>TASK NAVIGATION SYSTEM</h3>
+                        </div>
+                        <div class="project-preview-info">
+                            <div class="project-description">Comprehensive project management with kanban boards</div>
+                            <div class="project-tech-preview">VUE.JS • EXPRESS • POSTGRESQL</div>
+                        </div>
+                    </div>
+                    <div class="project-details">
+                        <div class="project-tech">VUE.JS | EXPRESS | POSTGRESQL</div>
+                        <p>Comprehensive project management tool with kanban boards and crew collaboration features.</p>
+                        <div class="project-links">
+                            <a href="#" class="project-link">[DEMO]</a>
+                            <a href="#" class="project-link">[CODE]</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card hidden-project" data-collapsed="true">
+                    <div class="project-header" onclick="toggleProject(this)">
+                        <div class="treasure-chest-main">
+                            <img src="./treasure.jpg" alt="Closed Treasure Chest" class="chest-closed">
+                            <img src="./openchest.png" alt="Open Treasure Chest" class="chest-open">
+                            <div class="treasure-glow"></div>
+                        </div>
+                        <div class="project-title-overlay">
+                            <h3>AI TRADING ALGORITHM</h3>
+                        </div>
+                        <div class="project-preview-info">
+                            <div class="project-description">Machine learning model for cryptocurrency trading</div>
+                            <div class="project-tech-preview">PYTHON • ML • TENSORFLOW</div>
+                        </div>
+                    </div>
+                    <div class="project-details">
+                        <div class="project-tech">PYTHON, TENSORFLOW, PANDAS, SCIKIT-LEARN, API INTEGRATION</div>
+                        <p>Developed an automated trading algorithm using machine learning to predict cryptocurrency price movements with 73% accuracy.</p>
+                        <p>Implemented neural networks with technical indicators, sentiment analysis from social media, and real-time market data integration.</p>
+                        <p>Backtested strategy across 2+ years of historical data achieving consistent returns while managing risk through position sizing.</p>
+                        <div class="project-links">
+                            <a href="#" class="project-link">[DEMO]</a>
+                            <a href="#" class="project-link">[CODE]</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card hidden-project" data-collapsed="true">
+                    <div class="project-header" onclick="toggleProject(this)">
+                        <div class="treasure-chest-main">
+                            <img src="./treasure.jpg" alt="Closed Treasure Chest" class="chest-closed">
+                            <img src="./openchest.png" alt="Open Treasure Chest" class="chest-open">
+                            <div class="treasure-glow"></div>
+                        </div>
+                        <div class="project-title-overlay">
+                            <h3>SMART HOME AUTOMATION</h3>
+                        </div>
+                        <div class="project-preview-info">
+                            <div class="project-description">IoT system for automated home control and monitoring</div>
+                            <div class="project-tech-preview">RASPBERRY PI • IoT • PYTHON</div>
+                        </div>
+                    </div>
+                    <div class="project-details">
+                        <div class="project-tech">RASPBERRY PI, PYTHON, MQTT, HOME ASSISTANT, SENSORS</div>
+                        <p>Built comprehensive home automation system using Raspberry Pi and various sensors for temperature, humidity, and motion detection.</p>
+                        <p>Integrated with smart lights, thermostats, and security cameras through MQTT protocol for real-time control and monitoring.</p>
+                        <p>Created mobile dashboard for remote access and implemented voice control through integration with Google Assistant.</p>
+                        <div class="project-links">
+                            <a href="#" class="project-link">[DEMO]</a>
+                            <a href="#" class="project-link">[CODE]</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card hidden-project" data-collapsed="true">
+                    <div class="project-header" onclick="toggleProject(this)">
+                        <div class="treasure-chest-main">
+                            <img src="./treasure.jpg" alt="Closed Treasure Chest" class="chest-closed">
+                            <img src="./openchest.png" alt="Open Treasure Chest" class="chest-open">
+                            <div class="treasure-glow"></div>
+                        </div>
+                        <div class="project-title-overlay">
+                            <h3>BLOCKCHAIN VOTING SYSTEM</h3>
+                        </div>
+                        <div class="project-preview-info">
+                            <div class="project-description">Secure and transparent voting platform using blockchain</div>
+                            <div class="project-tech-preview">SOLIDITY • ETHEREUM • WEB3</div>
+                        </div>
+                    </div>
+                    <div class="project-details">
+                        <div class="project-tech">SOLIDITY, ETHEREUM, WEB3.JS, REACT, METAMASK</div>
+                        <p>Designed and deployed a decentralized voting system on Ethereum blockchain ensuring transparency and immutability of votes.</p>
+                        <p>Implemented smart contracts for voter registration, ballot creation, and vote counting with cryptographic security measures.</p>
+                        <p>Built responsive web interface using React and Web3.js for seamless interaction with the blockchain network.</p>
+                        <div class="project-links">
+                            <a href="#" class="project-link">[DEMO]</a>
+                            <a href="#" class="project-link">[CODE]</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card hidden-project" data-collapsed="true">
+                    <div class="project-header" onclick="toggleProject(this)">
+                        <div class="treasure-chest-main">
+                            <img src="./treasure.jpg" alt="Closed Treasure Chest" class="chest-closed">
+                            <img src="./openchest.png" alt="Open Treasure Chest" class="chest-open">
+                            <div class="treasure-glow"></div>
+                        </div>
+                        <div class="project-title-overlay">
+                            <h3>WEATHER PREDICTION API</h3>
+                        </div>
+                        <div class="project-preview-info">
+                            <div class="project-description">Machine learning API for accurate weather forecasting</div>
+                            <div class="project-tech-preview">PYTHON • FLASK • ML</div>
+                        </div>
+                    </div>
+                    <div class="project-details">
+                        <div class="project-tech">PYTHON, FLASK, SCIKIT-LEARN, DOCKER, AWS EC2</div>
+                        <p>Created RESTful API service that predicts weather conditions using historical data and machine learning algorithms.</p>
+                        <p>Trained ensemble models combining random forests and neural networks achieving 85% accuracy for 7-day forecasts.</p>
+                        <p>Deployed containerized application on AWS EC2 with automatic scaling and integrated with multiple weather data sources.</p>
+                        <div class="project-links">
+                            <a href="#" class="project-link">[DEMO]</a>
+                            <a href="#" class="project-link">[CODE]</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="show-more-container">
+                <button class="show-more-btn" onclick="toggleShowMoreProjects()">
+                    [SHOW MORE PROJECTS]
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <div class="section-header">
+                <h2>NAVIGATION ARSENAL</h2>
+                <div class="vintage-divider">
+                    <span>[###]</span>
+                </div>
+            </div>
+                        <div class="skills-compact">
+                <div class="skill-row">
+                    <div class="skill-tag">JAVA</div>
+                    <div class="skill-tag">PYTHON</div>
+                    <div class="skill-tag">SQL</div>
+                    <div class="skill-tag">C</div>
+                    <div class="skill-tag">C++</div>
+                    <div class="skill-tag">JAVASCRIPT</div>
+                    <div class="skill-tag">HTML & CSS</div>
+                    <div class="skill-tag">SWIFT</div>
+                    <div class="skill-tag">MATLAB</div>
+                    <div class="skill-tag">OPENCV</div>
+                    <div class="skill-tag">NUMPY</div>
+                    <div class="skill-tag">PANDAS</div>
+                    <div class="skill-tag">MATPLOTLIB</div>
+                    <div class="skill-tag">DJANGO</div>
+                    <div class="skill-tag">SWIFTUI</div>
+                    <div class="skill-tag">GOOGLE CLOUD</div>
+                    <div class="skill-tag">DOCKER</div>
+                    <div class="skill-tag">REACT.JS</div>
+                    <div class="skill-tag">ANGULAR</div>
+                    <div class="skill-tag">CI/CD</div>
+                    <div class="skill-tag">GITHUB ACTIONS</div>
+                    <div class="skill-tag">AWS (S3, LAMBDA, BEDROCK)</div>
+                    <div class="skill-tag">APIGEE</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <div class="section-header">
+                <h2>SEND A MESSAGE IN A BOTTLE</h2>
+                <div class="vintage-divider">
+                    <span>[###]</span>
+                </div>
+            </div>
+            <div class="contact-content">
+                <div class="bottle-container">
+                    <div class="message-bottle">
+                        <img src="./bottle.png" alt="Message in a Bottle" class="bottle-image" />
+                        <div class="message-overlay">
+                            <div class="message-scroll">
+                                <div class="contact-info">
+                                    <div class="contact-item">
+                                        <a href="mailto:adamkul0126@gmail.com">
+                                            <span class="contact-icon">✉</span>
+                                            EMAIL
+                                        </a>
+                                    </div>
+                                    <div class="contact-item">
+                                        <a href="https://linkedin.com/in/adamkulikowski" target="_blank">
+                                            <span class="contact-icon">🔗</span>
+                                            LINKEDIN
+                                        </a>
+                                    </div>
+                                    <div class="contact-item">
+                                        <a href="https://github.com/Adas4044" target="_blank">
+                                            <span class="contact-icon">⚔</span>
+                                            GITHUB
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="pirate-elements">
+                            <div class="skull">☠</div>
+                            <div class="compass">⊕</div>
+                        </div>
+                    </div>
+                </div>
+                <p class="contact-intro">>>> CAST YOUR NOTE IN A BOTTLE TO CONNECT <<<</p>
+                <div class="floating-elements">
+                    <div class="wave wave1">~~~~~</div>
+                    <div class="wave wave2">~~~~~~~</div>
+                    <div class="wave wave3">~~~~~~~~</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 ADAM KULIKOWSKI - ALL RIGHTS RESERVED.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
