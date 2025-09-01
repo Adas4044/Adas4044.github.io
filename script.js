@@ -83,7 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const roles = [
             'SOFTWARE ENGINEER',
             'BUILDER',
-            'PHOTOGRAPHER'
+            'EXPLORER'
         ];
         
         let currentRoleIndex = 0;
