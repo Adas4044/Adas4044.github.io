@@ -458,14 +458,9 @@ function openSecretsOfMaps(element) {
         createMapTreasureEffect(projectCard);
     }, 800);
     
-    // Redirect after the full animation completes
+    // Reset the chest state and re-enable clicking after animation completes
     setTimeout(() => {
-        window.open('https://secretsofmaps.com', '_blank');
-        // Reset the chest state after redirect
-        setTimeout(() => {
-            projectCard.setAttribute('data-collapsed', 'true');
-            element.style.pointerEvents = 'auto';
-        }, 500);
+        element.style.pointerEvents = 'auto';
     }, 2500);
 }
 
