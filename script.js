@@ -417,6 +417,133 @@ function createFloatingTreasures(projectCard) {
     }
 }
 
+// Secrets of Maps project special function with animation and redirect
+function openSecretsOfMaps(element) {
+    console.log('Secrets of Maps treasure clicked!');
+    const projectCard = element.closest('.project-card');
+    if (!projectCard) {
+        console.log('Project card not found');
+        return;
+    }
+    
+    const chestClosed = projectCard.querySelector('.chest-closed');
+    const chestOpen = projectCard.querySelector('.chest-open');
+    const treasureGlow = projectCard.querySelector('.treasure-glow');
+    
+    // Prevent multiple clicks during animation
+    element.style.pointerEvents = 'none';
+    
+    // Start the treasure chest opening animation
+    projectCard.setAttribute('data-collapsed', 'false');
+    
+    // Add extra dramatic effects for this special project
+    if (chestClosed && chestOpen) {
+        // Shake the chest first
+        chestClosed.style.animation = 'chestShake 0.4s ease-in-out';
+        
+        setTimeout(() => {
+            chestClosed.style.animation = 'none';
+            // Add extra glow for this special project
+            if (treasureGlow) {
+                treasureGlow.style.background = 'radial-gradient(circle, rgba(255, 215, 0, 0.6) 0%, rgba(255, 215, 0, 0.3) 40%, rgba(255, 255, 255, 0.2) 70%, transparent 100%)';
+            }
+        }, 400);
+    }
+    
+    // Create enhanced floating treasures for this project
+    createEnhancedFloatingTreasures(projectCard);
+    
+    // Add a special map-themed treasure effect
+    setTimeout(() => {
+        createMapTreasureEffect(projectCard);
+    }, 800);
+    
+    // Redirect after the full animation completes
+    setTimeout(() => {
+        window.open('https://secretsofmaps.com', '_blank');
+        // Reset the chest state after redirect
+        setTimeout(() => {
+            projectCard.setAttribute('data-collapsed', 'true');
+            element.style.pointerEvents = 'auto';
+        }, 500);
+    }, 2500);
+}
+
+// Enhanced floating treasures specifically for Secrets of Maps
+function createEnhancedFloatingTreasures(projectCard) {
+    const mapTreasures = ['🗺️', '🧭', '📍', '🌍', '🛰️', '🔍', '📱', '🚗'];
+    const rect = projectCard.getBoundingClientRect();
+    const chestRect = projectCard.querySelector('.treasure-chest-main').getBoundingClientRect();
+    
+    for (let i = 0; i < 8; i++) {
+        setTimeout(() => {
+            const treasure = document.createElement('div');
+            treasure.className = 'floating-treasure';
+            treasure.textContent = mapTreasures[Math.floor(Math.random() * mapTreasures.length)];
+            
+            // Position relative to the treasure chest center
+            const startX = chestRect.left + chestRect.width / 2 + (Math.random() - 0.5) * 80;
+            const startY = chestRect.top + chestRect.height / 2;
+            
+            treasure.style.left = startX + 'px';
+            treasure.style.top = startY + 'px';
+            treasure.style.animationDelay = Math.random() * 0.3 + 's';
+            treasure.style.animationDuration = (2 + Math.random()) + 's';
+            treasure.style.fontSize = '28px'; // Slightly larger for this special project
+            
+            document.body.appendChild(treasure);
+            
+            // Remove after animation
+            setTimeout(() => {
+                if (treasure.parentNode) {
+                    treasure.parentNode.removeChild(treasure);
+                }
+            }, 3500);
+        }, i * 100);
+    }
+}
+
+// Special map-themed treasure effect
+function createMapTreasureEffect(projectCard) {
+    const chestRect = projectCard.querySelector('.treasure-chest-main').getBoundingClientRect();
+    
+    // Create a special "map unrolling" effect
+    const mapEffect = document.createElement('div');
+    mapEffect.className = 'map-treasure-effect';
+    mapEffect.textContent = '🗺️';
+    mapEffect.style.cssText = `
+        position: absolute;
+        left: ${chestRect.left + chestRect.width / 2}px;
+        top: ${chestRect.top + chestRect.height / 2}px;
+        font-size: 40px;
+        pointer-events: none;
+        z-index: 1001;
+        transform: scale(0) rotate(0deg);
+        opacity: 0;
+        transition: all 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    `;
+    
+    document.body.appendChild(mapEffect);
+    
+    // Animate the map unrolling
+    setTimeout(() => {
+        mapEffect.style.transform = 'scale(2) rotate(360deg)';
+        mapEffect.style.opacity = '1';
+    }, 100);
+    
+    setTimeout(() => {
+        mapEffect.style.transform = 'scale(0) rotate(720deg)';
+        mapEffect.style.opacity = '0';
+    }, 1200);
+    
+    // Remove after animation
+    setTimeout(() => {
+        if (mapEffect.parentNode) {
+            mapEffect.parentNode.removeChild(mapEffect);
+        }
+    }, 2500);
+}
+
 // Show more projects functionality
 function toggleShowMoreProjects() {
     const projectsGrid = document.querySelector('.projects-grid');
