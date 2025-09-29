@@ -417,7 +417,7 @@ function createFloatingTreasures(projectCard) {
     }
 }
 
-// Secrets of Maps project special function with animation and redirect
+// Secrets of Maps project special function with animation and toggle capability
 function openSecretsOfMaps(element) {
     console.log('Secrets of Maps treasure clicked!');
     const projectCard = element.closest('.project-card');
@@ -426,42 +426,77 @@ function openSecretsOfMaps(element) {
         return;
     }
     
+    const isCollapsed = projectCard.getAttribute('data-collapsed') === 'true';
+    console.log('Maps project current state:', isCollapsed ? 'collapsed' : 'expanded');
+    
     const chestClosed = projectCard.querySelector('.chest-closed');
     const chestOpen = projectCard.querySelector('.chest-open');
     const treasureGlow = projectCard.querySelector('.treasure-glow');
+    const projectDetails = projectCard.querySelector('.project-details');
     
-    // Prevent multiple clicks during animation
-    element.style.pointerEvents = 'none';
-    
-    // Start the treasure chest opening animation
-    projectCard.setAttribute('data-collapsed', 'false');
-    
-    // Add extra dramatic effects for this special project
-    if (chestClosed && chestOpen) {
-        // Shake the chest first
-        chestClosed.style.animation = 'chestShake 0.4s ease-in-out';
+    if (isCollapsed) {
+        // Opening the treasure chest
+        projectCard.setAttribute('data-collapsed', 'false');
         
+        // Prevent multiple clicks during animation
+        element.style.pointerEvents = 'none';
+        
+        // Add extra dramatic effects for this special project
+        if (chestClosed && chestOpen) {
+            // Shake the chest first
+            chestClosed.style.animation = 'chestShake 0.4s ease-in-out';
+            
+            setTimeout(() => {
+                chestClosed.style.animation = 'none';
+                // Add extra glow for this special project
+                if (treasureGlow) {
+                    treasureGlow.style.background = 'radial-gradient(circle, rgba(255, 215, 0, 0.6) 0%, rgba(255, 215, 0, 0.3) 40%, rgba(255, 255, 255, 0.2) 70%, transparent 100%)';
+                }
+            }, 400);
+        }
+        
+        // Create enhanced floating treasures for this project
+        createEnhancedFloatingTreasures(projectCard);
+        
+        // Add a special map-themed treasure effect
         setTimeout(() => {
-            chestClosed.style.animation = 'none';
-            // Add extra glow for this special project
-            if (treasureGlow) {
-                treasureGlow.style.background = 'radial-gradient(circle, rgba(255, 215, 0, 0.6) 0%, rgba(255, 215, 0, 0.3) 40%, rgba(255, 255, 255, 0.2) 70%, transparent 100%)';
-            }
-        }, 400);
+            createMapTreasureEffect(projectCard);
+        }, 800);
+        
+        // Add shimmer effect to the project details
+        if (projectDetails) {
+            projectDetails.style.transform = 'scale(0.95)';
+            projectDetails.style.opacity = '0';
+            
+            setTimeout(() => {
+                projectDetails.style.transition = 'all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+                projectDetails.style.transform = 'scale(1)';
+                projectDetails.style.opacity = '1';
+            }, 200);
+        }
+        
+        // Reset and re-enable clicking after animation completes
+        setTimeout(() => {
+            element.style.pointerEvents = 'auto';
+        }, 2500);
+        
+    } else {
+        // Closing the treasure chest (same as regular toggleProject)
+        projectCard.setAttribute('data-collapsed', 'true');
+        
+        if (projectDetails) {
+            projectDetails.style.transition = 'all 0.4s ease';
+            projectDetails.style.transform = 'scale(0.95)';
+            projectDetails.style.opacity = '0';
+        }
+        
+        // Reset the treasure glow
+        if (treasureGlow) {
+            treasureGlow.style.background = 'radial-gradient(circle, rgba(255, 215, 0, 0.2) 0%, rgba(255, 215, 0, 0.1) 50%, transparent 70%)';
+        }
     }
     
-    // Create enhanced floating treasures for this project
-    createEnhancedFloatingTreasures(projectCard);
-    
-    // Add a special map-themed treasure effect
-    setTimeout(() => {
-        createMapTreasureEffect(projectCard);
-    }, 800);
-    
-    // Reset the chest state and re-enable clicking after animation completes
-    setTimeout(() => {
-        element.style.pointerEvents = 'auto';
-    }, 2500);
+    console.log('Maps project new state:', isCollapsed ? 'expanded' : 'collapsed');
 }
 
 // Enhanced floating treasures specifically for Secrets of Maps

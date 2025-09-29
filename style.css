@@ -11,6 +11,7 @@ body {
     color: #1a1a1a;
     overflow-x: hidden;
     background: #f8f8f8;
+    scroll-behavior: smooth;
 }
 
 html {
@@ -353,11 +354,21 @@ html {
     font-family: 'Courier New', monospace;
     font-size: clamp(2.5rem, 5vw, 3.5rem);
     color: #1a1a1a;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
     position: relative;
     text-transform: uppercase;
     letter-spacing: 3px;
     font-weight: bold;
+}
+
+.section-subtitle {
+    font-family: 'Courier New', monospace;
+    font-size: clamp(1rem, 2vw, 1.2rem);
+    color: #666666;
+    margin-bottom: 1.5rem;
+    font-style: italic;
+    letter-spacing: 1px;
+    text-transform: none;
 }
 
 .vintage-divider {
@@ -492,6 +503,10 @@ html {
     color: #ffffff;
 }
 
+.experience .section-subtitle {
+    color: #cccccc;
+}
+
 .adventures .vintage-divider::before,
 .adventures .vintage-divider::after,
 .experience .vintage-divider::before,
@@ -622,6 +637,39 @@ html {
     opacity: 1;
 }
 
+.experience-summary {
+    font-family: 'Courier New', monospace;
+    font-size: 1rem;
+    color: #444444;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: #f8f8f8;
+    border-left: 4px solid #000000;
+    font-style: italic;
+}
+
+.experience-highlights {
+    font-family: 'Courier New', monospace;
+    font-size: 0.95rem;
+    line-height: 1.7;
+    color: #333333;
+    margin: 1.5rem 0;
+    padding-left: 1.5rem;
+}
+
+.experience-highlights li {
+    margin-bottom: 1rem;
+    position: relative;
+}
+
+.experience-highlights li::before {
+    content: "▶";
+    position: absolute;
+    left: -1.2rem;
+    color: #666666;
+    font-size: 0.8rem;
+}
+
 .timeline-details p {
     font-size: 1rem;
     margin-bottom: 1rem;
@@ -701,12 +749,19 @@ html {
 .achievement {
     font-family: 'Courier New', monospace;
     font-size: 0.8rem;
-    color: #000000;
-    background: #f0f0f0;
-    padding: 0.25rem 0.5rem;
-    border: 1px solid #000000;
+    color: #ffffff;
+    background: #333333;
+    padding: 0.4rem 0.8rem;
+    border: 2px solid #000000;
     text-transform: uppercase;
     letter-spacing: 1px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.achievement:hover {
+    background: #000000;
+    transform: scale(1.05);
 }
 
 /* Gallery Section */
@@ -720,11 +775,11 @@ html {
 
 /* Projects Grid Styles */
 .projects-grid {
-    max-width: 900px;
+    max-width: 1000px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
 }
 
 .project-card {
@@ -1069,6 +1124,53 @@ html {
     box-shadow: 3px 3px 0px #333333;
 }
 
+.project-impact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.impact-metric {
+    font-family: 'Courier New', monospace;
+    font-size: 0.8rem;
+    color: #ffffff;
+    background: #000000;
+    padding: 0.25rem 0.75rem;
+    border: 2px solid #000000;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+}
+
+.impact-metric:hover {
+    background: #333333;
+    transform: scale(1.05);
+}
+
+.project-highlights {
+    font-family: 'Courier New', monospace;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #333333;
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+}
+
+.project-highlights li {
+    margin-bottom: 0.5rem;
+    position: relative;
+}
+
+.project-highlights li::before {
+    content: "▶";
+    position: absolute;
+    left: -1.2rem;
+    color: #666666;
+    font-size: 0.8rem;
+}
+
 .project-links {
     display: flex;
     gap: 1rem;
@@ -1100,6 +1202,10 @@ html {
 
 .skills .section-header h2 {
     color: #ffffff;
+}
+
+.skills .section-subtitle {
+    color: #cccccc;
 }
 
 .skills .vintage-divider::before,
@@ -1162,6 +1268,10 @@ html {
 
 .contact .section-header h2 {
     color: #ffffff;
+}
+
+.contact .section-subtitle {
+    color: #cccccc;
 }
 
 .contact .vintage-divider::before,
