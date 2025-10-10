@@ -1,0 +1,84 @@
+/* Option 2: System fonts, ultra-clean */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    line-height: 1.7;
+    color: #24292e;
+    background: #fff;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 60px 30px;
+}
+
+header {
+    margin-bottom: 80px;
+}
+
+header nav {
+    margin-top: 12px;
+}
+
+.back-link {
+    color: #586069;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.back-link:hover {
+    color: #24292e;
+    text-decoration: underline;
+}
+
+.home-link {
+    color: #24292e;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.home-link:hover {
+    text-decoration: underline;
+}
+
+article {
+    margin-bottom: 48px;
+    padding-bottom: 48px;
+    border-bottom: 1px solid #e1e4e8;
+}
+
+article:last-child {
+    border-bottom: none;
+}
+
+article h2 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+article h2 a {
+    color: #24292e;
+    text-decoration: none;
+}
+
+article h2 a:hover {
+    color: #0366d6;
+}
+
+article time {
+    display: block;
+    color: #586069;
+    font-size: 14px;
+    margin-bottom: 12px;
+}
+
+article p {
+    color: #586069;
+    font-size: 16px;
+    line-height: 1.6;
+}
