@@ -16,8 +16,5 @@
     "url": "https://github.com/Adas4044/Adas4044.github.io/issues"
   },
   "homepage": "https://github.com/Adas4044/Adas4044.github.io#readme",
-  "description": "",
-  "dependencies": {
-    "@vercel/analytics": "^1.5.0"
-  }
+  "description": ""
 }

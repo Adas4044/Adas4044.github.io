@@ -445,9 +445,15 @@
 
 
     <script src="script.js"></script>
-    <script type="module">
-        import { inject } from 'https://cdn.vercel-insights.com/v1/script.js';
-        inject();
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-S0SMWRSS73"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-S0SMWRSS73');
     </script>
 </body>
 </html>
