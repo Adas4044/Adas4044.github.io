@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building Real-Time Systems at Scale - Adam Kulikowski</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><text y='50%' x='50%' text-anchor='middle' dominant-baseline='central' font-size='48'>🏴‍☠️</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            line-height: 1.65;
+            color: #1a1a1a;
+            background: #fff;
+        }
+
+        .site-header {
+            padding: 20px 0;
+            border-bottom: 1px solid #e5e5e5;
+            margin-bottom: 60px;
+        }
+
+        .site-header a {
+            color: #1a1a1a;
+            text-decoration: none;
+            font-size: 14px;
+            padding: 0 40px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+            position: relative;
+        }
+
+        /* Background decorative images - positioned to the sides */
+        .banner-container {
+            position: absolute;
+            width: 100%;
+            height: 600px;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .bg-decoration {
+            position: absolute;
+            opacity: 1;
+            pointer-events: none;
+        }
+
+        .bg-decoration.left {
+            top: 40px;
+            left: 20px;
+            width: 160px;
+            transform: rotate(-12deg);
+        }
+
+        .bg-decoration.center {
+            top: 0px;
+            right: 40px;
+            width: 150px;
+            transform: rotate(10deg);
+        }
+
+        .bg-decoration.right {
+            top: 230px;
+            right: 60px;
+            width: 170px;
+            transform: rotate(-8deg);
+        }
+
+        /* Table of Contents */
+        .toc {
+            float: left;
+            width: 200px;
+            margin-right: 60px;
+            margin-top: 280px;
+            position: sticky;
+            top: 40px;
+            z-index: 1;
+        }
+
+        .toc h3 {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #666;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .toc ul {
+            list-style: none;
+        }
+
+        .toc li {
+            margin-bottom: 10px;
+        }
+
+        .toc a {
+            color: #666;
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.2s;
+        }
+
+        .toc a:hover {
+            color: #1a1a1a;
+        }
+
+        .toc ul ul {
+            margin-left: 16px;
+            margin-top: 8px;
+        }
+
+        .toc ul ul li {
+            margin-bottom: 6px;
+        }
+
+        /* Main Content */
+        .content {
+            margin-left: 260px;
+            max-width: 720px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .content header {
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 16px;
+            color: #1a1a1a;
+        }
+
+        .description {
+            font-size: 18px;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+
+        .meta {
+            color: #888;
+            font-size: 14px;
+        }
+
+        .meta .author {
+            margin-right: 8px;
+        }
+
+        h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-top: 60px;
+            margin-bottom: 20px;
+            color: #1a1a1a;
+        }
+
+        h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-top: 40px;
+            margin-bottom: 16px;
+            color: #1a1a1a;
+        }
+
+        p {
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        strong {
+            font-weight: 600;
+        }
+
+        code {
+            background: #f5f5f5;
+            padding: 3px 6px;
+            border-radius: 3px;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 14px;
+            color: #d73a49;
+        }
+
+        pre {
+            background: #f5f5f5;
+            padding: 16px;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 24px 0;
+            border-left: 3px solid #ddd;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+            color: #333;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #e5e5e5;
+            margin: 50px 0;
+        }
+
+        .footer-note {
+            color: #888;
+            font-size: 14px;
+            font-style: italic;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid #e5e5e5;
+        }
+
+        .footer-note a {
+            color: #888;
+            text-decoration: none;
+        }
+
+        .footer-note a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .toc {
+                float: none;
+                width: 100%;
+                position: static;
+                margin-bottom: 40px;
+                margin-right: 0;
+            }
+
+            .content {
+                margin-left: 0;
+            }
+
+            h1 {
+                font-size: 36px;
+            }
+
+            .bg-decoration {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <a href="blog.html">← Back to Blog</a>
+    </header>
+
+    <div class="container">
+        <!-- Background decorative images -->
+        <div class="banner-container">
+            <img src="assets/ml-post-images/one.png" class="bg-decoration left" alt="">
+            <img src="assets/ml-post-images/two.png" class="bg-decoration center" alt="">
+            <img src="assets/ml-post-images/three.png" class="bg-decoration right" alt="">
+        </div>
+
+        <!-- Table of Contents -->
+        <nav class="toc">
+            <h3>Table of Contents</h3>
+            <ul>
+                <li><a href="#challenge">The Challenge</a></li>
+                <li><a href="#architecture">System Architecture</a></li>
+                <li><a href="#optimization">Optimization Strategies</a>
+                    <ul>
+                        <li><a href="#latency">Minimizing Latency</a></li>
+                        <li><a href="#throughput">Maximizing Throughput</a></li>
+                        <li><a href="#reliability">Ensuring Reliability</a></li>
+                    </ul>
+                </li>
+                <li><a href="#lessons">Lessons Learned</a></li>
+                <li><a href="#conclusion">Conclusion</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <article class="content">
+            <header>
+                <h1>Building Real-Time Systems at Scale</h1>
+
+                <div class="description">
+                    Lessons learned from building a fencing broadcast system that processes data in milliseconds—a technical deep-dive into optimization and performance
+                </div>
+
+                <div class="meta">
+                    <span class="author">Adam Kulikowski</span>
+                    <time datetime="2024-12-22">December 22, 2024</time>
+                </div>
+            </header>
+
+            <div class="article-content">
+                <p>Real-time systems are hard. When you're building something that needs to process data in milliseconds and display it to thousands of users simultaneously, every optimization matters. This is the story of building a fencing broadcast system for Georgia Tech's athletic department—and all the performance lessons I learned along the way.</p>
+
+                <h2 id="challenge">The Challenge</h2>
+
+                <p>Fencing is one of the fastest sports in the world. Touches happen in fractions of a second, and spectators need to see scores update instantly. The challenge? Build a system that could:</p>
+
+                <p><strong>Process scoring data in under 100ms</strong><br>
+                <strong>Handle 1000+ concurrent viewers</strong><br>
+                <strong>Integrate with legacy hardware</strong><br>
+                <strong>Maintain 99.9% uptime during live events</strong></p>
+
+                <p>No pressure, right?</p>
+
+                <h2 id="architecture">System Architecture</h2>
+
+                <p>We built the system using a microservices architecture with WebSocket connections for real-time data streaming. The stack looked like this:</p>
+
+                <pre><code>Frontend: React with WebSocket client
+Backend: Node.js + Express
+Message Broker: Redis Pub/Sub
+Database: PostgreSQL (for historical data)
+Hardware Interface: Custom serial port adapter</code></pre>
+
+                <p>The key insight was separating the <strong>read path</strong> (serving live data to viewers) from the <strong>write path</strong> (processing scoring events). This allowed us to optimize each independently.</p>
+
+                <h2 id="optimization">Optimization Strategies</h2>
+
+                <h3 id="latency">1. Minimizing Latency</h3>
+
+                <p>Our first bottleneck was the time it took to get data from the scoring machine to the viewer's screen. We reduced this from 800ms to under 100ms by:</p>
+
+                <p><strong>Using binary protocols</strong> instead of JSON where possible<br>
+                <strong>Implementing connection pooling</strong> to avoid TCP handshake overhead<br>
+                <strong>Adding edge caching</strong> with Redis for frequently accessed data</p>
+
+                <p>The biggest win came from batching updates. Instead of sending individual score changes, we aggregated events over 50ms windows. This reduced network overhead by 70% without any perceivable delay.</p>
+
+                <h3 id="throughput">2. Maximizing Throughput</h3>
+
+                <p>Handling 1000+ concurrent connections meant we needed to think carefully about resource usage. Our Node.js server was CPU-bound, so we:</p>
+
+                <p><strong>Horizontally scaled</strong> with multiple server instances behind a load balancer<br>
+                <strong>Optimized event loops</strong> to avoid blocking I/O operations<br>
+                <strong>Implemented rate limiting</strong> to protect against traffic spikes</p>
+
+                <p>We also used WebSocket compression (permessage-deflate) which reduced bandwidth by 60% for typical payloads.</p>
+
+                <h3 id="reliability">3. Ensuring Reliability</h3>
+
+                <p>During a live event, downtime isn't an option. We built redundancy into every layer:</p>
+
+                <p><strong>Dual hardware connections</strong> with automatic failover<br>
+                <strong>Graceful degradation</strong> when components fail<br>
+                <strong>Circuit breakers</strong> to prevent cascading failures<br>
+                <strong>Comprehensive monitoring</strong> with Prometheus and Grafana</p>
+
+                <p>The system successfully handled 12 major tournaments without a single critical outage.</p>
+
+                <h2 id="lessons">Lessons Learned</h2>
+
+                <p><strong>Measure everything.</strong> You can't optimize what you don't measure. We instrumented every component and discovered bottlenecks we never would have guessed.</p>
+
+                <p><strong>Premature optimization is real.</strong> We wasted time optimizing database queries that accounted for less than 1% of our latency budget. Focus on the critical path first.</p>
+
+                <p><strong>Test under load.</strong> Our system worked great with 10 users. At 500 users, we discovered memory leaks and connection pool exhaustion. Load testing should be part of your CI/CD pipeline.</p>
+
+                <p><strong>Keep it simple.</strong> Complex systems are harder to debug and maintain. Every abstraction adds overhead. Choose simplicity when performance matters.</p>
+
+                <h2 id="conclusion">Conclusion</h2>
+
+                <p>Building real-time systems at scale is challenging, but incredibly rewarding. The key is understanding your performance requirements, measuring your system's behavior, and optimizing the right things.</p>
+
+                <p>If you're building something similar, my advice: start with a simple architecture, add instrumentation everywhere, and scale incrementally. And most importantly—test under realistic conditions before going live.</p>
+
+                <div class="footer-note">
+                    Thanks for reading. If you have questions about real-time systems or want to discuss performance optimization, reach out on <a href="https://linkedin.com/in/adamkulikowski">LinkedIn</a> or <a href="mailto:adamkul0126@gmail.com">email</a>.
+                </div>
+            </div>
+        </article>
+    </div>
+</body>
+</html>

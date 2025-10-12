@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Art of API Design - Adam Kulikowski</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><text y='50%' x='50%' text-anchor='middle' dominant-baseline='central' font-size='48'>🏴‍☠️</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            line-height: 1.65;
+            color: #1a1a1a;
+            background: #fff;
+        }
+
+        .site-header {
+            padding: 20px 0;
+            border-bottom: 1px solid #e5e5e5;
+            margin-bottom: 60px;
+        }
+
+        .site-header a {
+            color: #1a1a1a;
+            text-decoration: none;
+            font-size: 14px;
+            padding: 0 40px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+            position: relative;
+        }
+
+        /* Background decorative images - positioned to the sides */
+        .banner-container {
+            position: absolute;
+            width: 100%;
+            height: 600px;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .bg-decoration {
+            position: absolute;
+            opacity: 1;
+            pointer-events: none;
+        }
+
+        .bg-decoration.left {
+            top: 40px;
+            left: 20px;
+            width: 160px;
+            transform: rotate(-12deg);
+        }
+
+        .bg-decoration.center {
+            top: 0px;
+            right: 40px;
+            width: 150px;
+            transform: rotate(10deg);
+        }
+
+        .bg-decoration.right {
+            top: 230px;
+            right: 60px;
+            width: 170px;
+            transform: rotate(-8deg);
+        }
+
+        /* Table of Contents */
+        .toc {
+            float: left;
+            width: 200px;
+            margin-right: 60px;
+            margin-top: 280px;
+            position: sticky;
+            top: 40px;
+            z-index: 1;
+        }
+
+        .toc h3 {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #666;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .toc ul {
+            list-style: none;
+        }
+
+        .toc li {
+            margin-bottom: 10px;
+        }
+
+        .toc a {
+            color: #666;
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.2s;
+        }
+
+        .toc a:hover {
+            color: #1a1a1a;
+        }
+
+        .toc ul ul {
+            margin-left: 16px;
+            margin-top: 8px;
+        }
+
+        .toc ul ul li {
+            margin-bottom: 6px;
+        }
+
+        /* Main Content */
+        .content {
+            margin-left: 260px;
+            max-width: 720px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .content header {
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 16px;
+            color: #1a1a1a;
+        }
+
+        .description {
+            font-size: 18px;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+
+        .meta {
+            color: #888;
+            font-size: 14px;
+        }
+
+        .meta .author {
+            margin-right: 8px;
+        }
+
+        h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-top: 60px;
+            margin-bottom: 20px;
+            color: #1a1a1a;
+        }
+
+        h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-top: 40px;
+            margin-bottom: 16px;
+            color: #1a1a1a;
+        }
+
+        p {
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        strong {
+            font-weight: 600;
+        }
+
+        code {
+            background: #f5f5f5;
+            padding: 3px 6px;
+            border-radius: 3px;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 14px;
+            color: #d73a49;
+        }
+
+        pre {
+            background: #f5f5f5;
+            padding: 16px;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 24px 0;
+            border-left: 3px solid #ddd;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+            color: #333;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #e5e5e5;
+            margin: 50px 0;
+        }
+
+        .footer-note {
+            color: #888;
+            font-size: 14px;
+            font-style: italic;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid #e5e5e5;
+        }
+
+        .footer-note a {
+            color: #888;
+            text-decoration: none;
+        }
+
+        .footer-note a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .toc {
+                float: none;
+                width: 100%;
+                position: static;
+                margin-bottom: 40px;
+                margin-right: 0;
+            }
+
+            .content {
+                margin-left: 0;
+            }
+
+            h1 {
+                font-size: 36px;
+            }
+
+            .bg-decoration {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <a href="blog.html">← Back to Blog</a>
+    </header>
+
+    <div class="container">
+        <!-- Background decorative images -->
+        <div class="banner-container">
+            <img src="assets/ml-post-images/one.png" class="bg-decoration left" alt="">
+            <img src="assets/ml-post-images/two.png" class="bg-decoration center" alt="">
+            <img src="assets/ml-post-images/three.png" class="bg-decoration right" alt="">
+        </div>
+
+        <!-- Table of Contents -->
+        <nav class="toc">
+            <h3>Table of Contents</h3>
+            <ul>
+                <li><a href="#intro">Introduction</a></li>
+                <li><a href="#principles">Design Principles</a>
+                    <ul>
+                        <li><a href="#consistency">Consistency</a></li>
+                        <li><a href="#simplicity">Simplicity</a></li>
+                        <li><a href="#versioning">Versioning</a></li>
+                    </ul>
+                </li>
+                <li><a href="#rest">RESTful Best Practices</a></li>
+                <li><a href="#security">Security Considerations</a></li>
+                <li><a href="#documentation">Documentation</a></li>
+                <li><a href="#final">Final Thoughts</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <article class="content">
+            <header>
+                <h1>The Art of API Design</h1>
+
+                <div class="description">
+                    From Swagger specifications to real-world implementation—best practices for building robust, secure, and scalable APIs
+                </div>
+
+                <div class="meta">
+                    <span class="author">Adam Kulikowski</span>
+                    <time datetime="2024-11-10">November 10, 2024</time>
+                </div>
+            </header>
+
+            <div class="article-content">
+                <h2 id="intro">Introduction</h2>
+
+                <p>APIs are the contracts between systems. They're how microservices communicate, how mobile apps fetch data, and how third-party integrations work. A well-designed API is intuitive, consistent, and built to last. A poorly designed one becomes technical debt that haunts you for years.</p>
+
+                <p>Over the past few years, I've designed and implemented APIs for everything from internal microservices to public-facing platforms. Here's what I've learned about building APIs that developers actually enjoy using.</p>
+
+                <h2 id="principles">Design Principles</h2>
+
+                <h3 id="consistency">1. Consistency is King</h3>
+
+                <p>The most important rule of API design is consistency. If your endpoints follow predictable patterns, developers can learn your API once and apply that knowledge everywhere.</p>
+
+                <p>Here's what consistency looks like in practice:</p>
+
+                <pre><code>GET    /api/v1/users          # List all users
+GET    /api/v1/users/:id      # Get specific user
+POST   /api/v1/users          # Create new user
+PUT    /api/v1/users/:id      # Update user
+DELETE /api/v1/users/:id      # Delete user</code></pre>
+
+                <p>Notice the pattern? Every resource follows the same structure. No surprises, no exceptions (unless absolutely necessary).</p>
+
+                <h3 id="simplicity">2. Simplicity Over Cleverness</h3>
+
+                <p>I've seen APIs that tried to be too clever—using nested resources six levels deep, or returning different data structures based on query parameters. Don't do this.</p>
+
+                <p>Keep endpoints simple and predictable. If you need complex queries, use query parameters explicitly:</p>
+
+                <pre><code>GET /api/v1/users?role=admin&status=active&sort=created_at</code></pre>
+
+                <p>This is clear, self-documenting, and easy to extend without breaking existing clients.</p>
+
+                <h3 id="versioning">3. Version from Day One</h3>
+
+                <p>Even if you think your API will never change, version it. Future you will thank past you.</p>
+
+                <p>I prefer URL versioning (<code>/v1/</code>, <code>/v2/</code>) because it's explicit and visible. Some people prefer header-based versioning, which is fine too. Just pick one approach and stick with it.</p>
+
+                <h2 id="rest">RESTful Best Practices</h2>
+
+                <p>REST isn't just about using HTTP methods. It's about designing resources that map cleanly to your domain model. Here are some patterns I follow:</p>
+
+                <p><strong>Use nouns for resources, not verbs.</strong> Good: <code>/users</code>. Bad: <code>/getUsers</code>.</p>
+
+                <p><strong>Use HTTP status codes correctly.</strong> 200 for success, 201 for creation, 400 for client errors, 500 for server errors. Don't return 200 with an error message in the body.</p>
+
+                <p><strong>Return meaningful error messages.</strong> Include error codes, human-readable messages, and debugging information:</p>
+
+                <pre><code>{
+  "error": {
+    "code": "INVALID_EMAIL",
+    "message": "Email address format is invalid",
+    "field": "email"
+  }
+}</code></pre>
+
+                <p><strong>Support pagination for lists.</strong> Always. Even if you think the list will be small, implement pagination from the start:</p>
+
+                <pre><code>GET /api/v1/users?page=2&limit=50</code></pre>
+
+                <h2 id="security">Security Considerations</h2>
+
+                <p>Security isn't an afterthought. Here are the non-negotiables:</p>
+
+                <p><strong>Always use HTTPS.</strong> No exceptions. HTTP traffic can be intercepted and modified.</p>
+
+                <p><strong>Implement authentication and authorization.</strong> I typically use JWT tokens with short expiration times and refresh tokens for long-lived sessions.</p>
+
+                <p><strong>Rate limit your endpoints.</strong> Protect against abuse and DDoS attacks. Return proper 429 status codes with Retry-After headers.</p>
+
+                <p><strong>Validate all input.</strong> Never trust client data. Use schema validation libraries like Joi or Yup to enforce constraints.</p>
+
+                <p><strong>Sanitize sensitive data in responses.</strong> Don't return passwords, tokens, or internal IDs unless absolutely necessary.</p>
+
+                <h2 id="documentation">Documentation</h2>
+
+                <p>Good documentation is what separates a great API from a frustrating one. I use OpenAPI (Swagger) specifications for all my APIs because they're:</p>
+
+                <p><strong>Machine-readable</strong> (can generate client SDKs)<br>
+                <strong>Interactive</strong> (try endpoints directly from the docs)<br>
+                <strong>Version-controlled</strong> (track API changes over time)</p>
+
+                <p>But don't just generate docs from your code. Write examples, explain edge cases, and document error conditions. Real-world usage examples are worth their weight in gold.</p>
+
+                <h2 id="final">Final Thoughts</h2>
+
+                <p>Designing good APIs is part science, part art. The science is following standards and best practices. The art is understanding your users and building something intuitive.</p>
+
+                <p>Think of your API as a product, not just a technical interface. Treat your API consumers as customers. Make their lives easier, and they'll love working with your system.</p>
+
+                <p>Remember: you'll be your own API consumer someday. Design the API you wish existed.</p>
+
+                <div class="footer-note">
+                    Thanks for reading. If you want to discuss API design or share your own experiences, reach out on <a href="https://linkedin.com/in/adamkulikowski">LinkedIn</a> or <a href="mailto:adamkul0126@gmail.com">email</a>.
+                </div>
+            </div>
+        </article>
+    </div>
+</body>
+</html>
