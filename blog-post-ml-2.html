@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I used Machine Learning to Beat the Roblox Interview Game - Adam Kulikowski</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><text y='50%' x='50%' text-anchor='middle' dominant-baseline='central' font-size='48'>🏴‍☠️</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            line-height: 1.65;
+            color: #1a1a1a;
+            background: #fff;
+        }
+
+        .site-header {
+            padding: 20px 0;
+            border-bottom: 1px solid #e5e5e5;
+            margin-bottom: 60px;
+        }
+
+        .site-header a {
+            color: #1a1a1a;
+            text-decoration: none;
+            font-size: 14px;
+            padding: 0 40px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+            position: relative;
+        }
+
+        /* Background decorative images - positioned to the sides */
+        .banner-container {
+            position: absolute;
+            width: 100%;
+            height: 600px;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .bg-decoration {
+            position: absolute;
+            opacity: 1;
+            pointer-events: none;
+        }
+
+        .bg-decoration.left {
+            top: 40px;
+            left: 20px;
+            width: 160px;
+            transform: rotate(-12deg);
+        }
+
+        .bg-decoration.center {
+            top: 0px;
+            right: 40px;
+            width: 150px;
+            transform: rotate(10deg);
+        }
+
+        .bg-decoration.right {
+            top: 230px;
+            right: 60px;
+            width: 170px;
+            transform: rotate(-8deg);
+        }
+
+        /* Table of Contents */
+        .toc {
+            float: left;
+            width: 200px;
+            margin-right: 60px;
+            margin-top: 280px;
+            position: sticky;
+            top: 40px;
+            z-index: 1;
+        }
+
+        .toc h3 {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #666;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .toc ul {
+            list-style: none;
+        }
+
+        .toc li {
+            margin-bottom: 10px;
+        }
+
+        .toc a {
+            color: #666;
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.2s;
+        }
+
+        .toc a:hover {
+            color: #1a1a1a;
+        }
+
+        .toc ul ul {
+            margin-left: 16px;
+            margin-top: 8px;
+        }
+
+        .toc ul ul li {
+            margin-bottom: 6px;
+        }
+
+        /* Main Content */
+        .content {
+            margin-left: 260px;
+            max-width: 720px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .content header {
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 16px;
+            color: #1a1a1a;
+        }
+
+        .description {
+            font-size: 18px;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+
+        .meta {
+            color: #888;
+            font-size: 14px;
+        }
+
+        .meta .author {
+            margin-right: 8px;
+        }
+
+        h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-top: 60px;
+            margin-bottom: 20px;
+            color: #1a1a1a;
+        }
+
+        h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-top: 40px;
+            margin-bottom: 16px;
+            color: #1a1a1a;
+        }
+
+        p {
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        strong {
+            font-weight: 600;
+        }
+
+        code {
+            background: #f5f5f5;
+            padding: 3px 6px;
+            border-radius: 3px;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 14px;
+            color: #d73a49;
+        }
+
+        pre {
+            background: #f5f5f5;
+            padding: 16px;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 24px 0;
+            border-left: 3px solid #ddd;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+            color: #333;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #e5e5e5;
+            margin: 50px 0;
+        }
+
+        .footer-note {
+            color: #888;
+            font-size: 14px;
+            font-style: italic;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid #e5e5e5;
+        }
+
+        .footer-note a {
+            color: #888;
+            text-decoration: none;
+        }
+
+        .footer-note a:hover {
+            text-decoration: underline;
+        }
+
+        .highlight-box {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 6px;
+            margin: 30px 0;
+            color: #666;
+            font-size: 15px;
+            line-height: 1.6;
+            border-left: 3px solid #ddd;
+        }
+
+        .image-container {
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .image-subtext {
+            margin-top: 12px;
+            color: #666;
+            font-size: 14px;
+            font-style: italic;
+            line-height: 1.5;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .toc {
+                float: none;
+                width: 100%;
+                position: static;
+                margin-bottom: 40px;
+                margin-right: 0;
+            }
+
+            .content {
+                margin-left: 0;
+            }
+
+            h1 {
+                font-size: 36px;
+            }
+
+            .bg-decoration {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <a href="blog.html">← Back to Blog</a>
+    </header>
+
+    <div class="container">
+        <!-- Background decorative images -->
+        <div class="banner-container">
+            <img src="assets/ml-post-images/one.png" class="bg-decoration left" alt="">
+            <img src="assets/ml-post-images/two.png" class="bg-decoration center" alt="">
+            <img src="assets/ml-post-images/three.png" class="bg-decoration right" alt="">
+        </div>
+
+        <!-- Table of Contents -->
+        <nav class="toc">
+            <h3>Table of Contents</h3>
+            <ul>
+                <li><a href="#intro">The Challenge</a></li>
+                <li><a href="#possible">Is This Even Possible?</a></li>
+                <li><a href="#approach">My First Approach</a></li>
+                <li><a href="#problems">The Problems</a></li>
+                <li><a href="#solution">The Solution</a></li>
+                <li><a href="#speed">Speed Matters</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <article class="content">
+            <header>
+                <h1>I used Machine Learning to Beat the Roblox Interview Game</h1>
+
+                <div class="description">
+                    Building a game-playing AI to solve Kaiju Cats and exploring the challenges of simulation, optimization, and speed
+                </div>
+
+                <div class="meta">
+                    <span class="author">Adam Kulikowski</span>
+                    <time datetime="2025-01-15">January 15, 2025</time>
+                </div>
+            </header>
+
+            <div class="article-content">
+                <h2 id="intro">The Challenge</h2>
+
+                <p>Unlike most other companies, Roblox takes a bit of a different approach when it comes to interviews. Instead of the classic Leetcode coding style assessments, they use problem solving games. One of these games is called Kaiju Cats. It's a game where you control the movement of 3 cats and try to maximize the amount of points they get.</p>
+
+                <p>After learning about popular machine learning algorithms like Deep Blue and Alpha Go in my university class, I wanted to create something similar that could learn and master this game. I was initially thinking of using a reinforcement approach: simulate millions of games and use either random forest or a neural net style algorithm to develop heuristics for solving games.</p>
+
+                <h2 id="possible">Is This Even Possible?</h2>
+
+                <p>To start off, I had to ask myself the question of is this even possible? Upon my quick initial count there are 25-30 squares where you can place movement tiles (I later found out it's 31!). Also we are looking for the combinations here not permutations: (Left, Stomp, Right) is going to be very different from (Right, Stomp, Left) even though they use the same commands.</p>
+
+                <div class="image-container">
+                    <img src="assets/ml-post-images/start.png" alt="Kaiju Cats Game">
+                </div>
+
+                <p>Since each tile can be one of 6 commands (up, down, left, right, stomp, powerup), that's 6 possible choices for each square. I assumed 30 just for simplicity.</p>
+
+                <p>That means that there is a possibility of 6^30 combinations a game can have or 2.210 * 10^24.</p>
+
+                <div class="highlight-box">
+                    If you're curious, that's: 61,159,090,448,414,546,283,439,041 possible combinations.<br>
+                    That's 8 million times the number of grains of sand on earth.
+                </div>
+
+                <p>Yeah not a good initial sign…</p>
+
+                <p>But, before I threw this project away as impossible, I considered chess algorithms. The average branching factor, or the number of possible moves for each chess move, is 35. That's a lot worse than 6. Basic chess algorithms written by amateurs are able to play at a beginner to intermediate level. So why couldn't I devise a Kaiju engine that could play at an equally beginner to intermediate level?</p>
+
+                <h2 id="approach">My First Approach</h2>
+
+                <p>My first challenge in this project was how to even approach the problem. Could it even be solved? As with all machine learning, I started to think about what would be the goal metric? How could I measure how good my algorithm was performing? How would I prune off combinations of movements from the game, as searching all of them was infeasible?</p>
+
+                <h2 id="problems">The Problems</h2>
+
+                <p>There were several problems with this approach:</p>
+
+                <p>The game map changes with each play. This means that some heuristics which work well on some maps might not work on other maps.</p>
+
+                <p>Machine learning algorithms require huge datasets. There is no automated way to run the game millions of times, so how could I gather a large enough dataset to make any ML algorithm work?</p>
+
+                <p>The most obvious of these problems was that since this was a game designed to be played by people, there was no way to run this game millions (if not more) times. Manually loading the game and recording the state takes about 1-2 minutes. Since I don't have 1-2 million minutes of free time, I had to look for another approach.</p>
+
+                <h2 id="solution">The Solution</h2>
+
+                <p>So I decided to go for another approach.</p>
+
+                <p>Build a simulator which could accurately simulate a game's map.</p>
+
+                <p>Use machine learning to run millions of simulations on that specific game map to find the map's most optimal score.</p>
+
+                <h2 id="speed">Speed Matters</h2>
+
+                <p>So I started building the simulator in Python because I figured it would be simple and easy to build. Big mistake. Part way through building it, one of my friends brought up that speed would be of the utmost importance in this project. A difference in speed of the simulator of even a few milliseconds would be compounded over the millions of iterations I would need to run. Here's a cool graph online I found showing this problem:</p>
+
+                <div class="image-container">
+                    <img src="assets/ml-post-images/programming_language_comparison.png" alt="Programming Language Speed Comparison" style="max-width: 55%;">
+                    <div class="image-subtext">
+                        For those wondering why Python is so slow, it has to do with its various features such as dynamic typing, garbage collection, and also how it's compiled.
+                    </div>
+                </div>
+
+                <p>Now you can speed some of these things with libraries like numpy, but I figured it would be better just to avoid Python just in case I got stuck somewhere and would have to rewrite everything.</p>
+
+                <p>Now I don't know C well enough to build this out, but I did several undergrad classes in Java, so I felt comfortable using that to build out the simulator.</p>
+
+                <p>The core of the simulator is built around an object-oriented design with two main components: the GameSimulator class and a hierarchy of Tile objects. Each tile type (buildings, power plants, mud, spike traps, etc.) inherits from an abstract Tile class and implements its own behavior when a cat steps on it. For example, when a cat stomps a building, the building awards power based on its size (250 for small houses, 500 for big houses), destroys its top floor, and executes any command attached to that floor. For power plants, I have a destroyed attribute. If (!destroyed), then apply the 2x power, otherwise, if destroyed, ignore. For buildings, there is a simple remainingFloors counter.</p>
+
+                <div class="image-container">
+                    <div style="display: flex; justify-content: center; gap: 20px;">
+                        <div style="flex: 1; text-align: center;">
+                            <img src="assets/ml-post-images/commands.png" alt="Commands" style="max-width: 70%; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        </div>
+                        <div style="flex: 1; text-align: center;">
+                            <img src="assets/ml-post-images/tiles.png" alt="Tiles" style="max-width: 70%; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        </div>
+                    </div>
+                    <div class="image-subtext">
+                        Implementation of tile enums from the code
+                    </div>
+                </div>
+
+                <p>The game runs for 15 turns. The movement system operates in three distinct phases.</p>
+                <ul style="margin-left: 20px; margin-bottom: 20px;">
+                    <li>ACTIVE state calculates where it wants to move based on its current direction. If a cat is facing EAST, it plans to move one tile to the right.</li>
+                    <li>STUCK_MUD cats skip their movement but clear their stuck status for next turn</li>
+                    <li>STOMPING cats stay in place to destroy the next floor of their current building.</li>
+                </ul>
+
+                <div class="image-container">
+                    <img src="assets/ml-post-images/active.png" alt="Active State" style="max-width: 70%;">
+                    <div class="image-subtext">
+                        Snipped from the code showing how the turn simulation works
+                    </div>
+                </div>
+
+                <p>The second phase is collision detection and movement resolution. This is where things get interesting. When a cat tries to move, the simulator first checks if the target tile is passable. Walls (represented by #) and boulders (X) are impassable, so if a cat tries to move into one, it immediately reverses direction. If multiple cats try to move to the same tile in the same turn, there's a fight. The winner is determined first by current power. If there's a tie in power, hierarchy breaks it: Blue beats Green beats Red.</p>
+
+                <div class="image-container">
+                    <video autoplay loop muted playsinline style="max-width: 100%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        <source src="assets/ml-post-images/fighting.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="image-subtext">
+                        Example of an edge case: what if two cats of the same power land on the same square?
+                    </div>
+                </div>
+
+                <p>The third phase is where tile effects apply. Landing on a building causes the cat to stomp it and power is gained based on the building. The cat destroys the top floor, and executes any command attached to that floor. The simulation can end early if all cats either reach:</p>
+                <ul style="margin-left: 20px; margin-bottom: 20px;">
+                    <li>FINISHED status (made it to their bed)</li>
+                    <li>DEFEATED status (lost all their power)</li>
+                </ul>
+                <p>Otherwise it runs for exactly 15 turns.</p>
+
+                <p>Now part one alone seemed simple at first, but there were several challenges that quickly arose that were never addressed in the rules? For example:</p>
+
+                <p>If cats land on the same square, do they fight first or does one gain the points on the square first? If a powerplant has a bonus on it, is the 2x multiplier from the powerplant applied first or are the points added? The answer to these questions is that they fight first, and 2x multiplier is applied first. But these were both things not explicitly stated in the rules. And why would they be! No casual player would care about them. But for my machine learning algorithm to work, I had to be certain the simulator was correct. Even a small mistake in the simulator could cause my algorithm to prioritize a wrong decision and end up with a high score that could never be achieved in the real game.</p>
+
+                <p>And here is how I structured the input and output:</p>
+
+                <div class="image-container">
+                    <img src="assets/ml-post-images/starting_positions.png" alt="Starting Positions" style="max-width: 70%;">
+                </div>
+
+                <div class="image-container">
+                    <img src="assets/ml-post-images/movements.png" alt="Movements" style="max-width: 70%;">
+                </div>
+
+                <p>After running the simulator and comparing the output and intermediate steps with the real Kaiju game, tweaking the simulator a bit as I found small bugs, I ultimately ended up getting something that worked perfectly.</p>
+
+                <div class="image-container">
+                    <img src="assets/ml-post-images/pretty_terminal.png" alt="Pretty Terminal Output" style="max-width: 70%;">
+                    <div class="image-subtext">
+                        Once I got it working on basic terminal output and verified the solutions, I got Claude to add some cool color elements to make it look pretty in the terminal.
+                    </div>
+                </div>
+
+                <h2 id="ml">The Machine Learning</h2>
+
+                <p>This was ultimately the make or break of this project. The number of possibilities was enormous. I had to rule out a few algorithms from the start. Because there was no adversary in this exercise, we could not use alpha-beta pruning like chess algorithms commonly use. Also since there is really no way to label data (and no efficient way to do so), approaches like HMMs or Random Forest would not work.</p>
+
+                <p>Bouncing around ideas with my friend Kevin, we ultimately decided simulated annealing would work best. The idea behind simulated annealing is like the real metallurgical process: heat everything up and let it cool down. By heating everything up, we mean trying a lot of random possibilities across a lot of different sequence types. Then by cooling down, we mean narrowing in on what worked best and optimizing that.</p>
+
+                <p>Simulated annealing works well here because of the nature of the game. The game has a lot of "good but not great" solutions. Solutions that get you 30-40k points, but are far from the optimal solution. However, usually once you find some 30-40k solution, you can usually optimize it better to get a better score of around 70-80k. The advantage of simulated annealing was that we could try a lot of different paths, find some "good but not great solutions" and then the cool down would be able to optimize it.</p>
+
+                <p>So that's exactly what I did. I created a basic simulating annealing algorithm.</p>
+
+                <div class="image-container">
+                    <img src="assets/ml-post-images/SA.gif" alt="Simulated Annealing Visualization" style="max-width: 70%;">
+                    <div class="image-subtext">
+                        Visualization of simulated annealing (credit: https://medium.com/data-science/an-introduction-to-a-powerful-optimization-technique-simulated-annealing-87fd1e3676dd)
+                    </div>
+                </div>
+
+                <h3>Pure Simulated Annealing</h3>
+
+                <p>My first implementation, SimpleScoreOptimizer.java, followed the textbook simulated annealing approach with absolutely no heuristics or domain knowledge. The algorithm started with an empty solution (no commands placed) and iteratively improved it through random mutations. At each step, it would randomly choose to either<br>
+                (1) remove a command<br>
+                (2) add a new random command to any valid tile<br>
+                (3) modify an existing command<br>
+                (4) make 2-3 changes at once.</p>
+
+                <p>The acceptance criterion was pure simulated annealing: always accept better solutions, and accept worse solutions with probability e^(score/temperature). The temperature started extremely high (100,000) and cooled very slowly over millions of iterations, with an automatic restart mechanism that would reset from scratch every 10,000 iterations without improvement.</p>
+
+                <p>But…..the results were consistently disappointing. The algorithm would quickly climb from 0 to around 30,000-40,000 points in the first thousand iterations, then slowly creep up to 45,000-50,000 over the next few thousand iterations, before completely flatlining. Different runs would converge to different mediocre solutions, usually in the 40k-50k range, with occasional lucky runs hitting 60k-70k.</p>
+
+                <p>Given that high scores for this game can get up to 100k+, this was just not good enough.</p>
+
+                <p>The failure came down to a mismatch between how simulated annealing explores and what this problem actually required. First, the search space was absolutely massive. Most random command placements produced terrible scores because random turns would send cats into walls or spike traps, random powerups would be placed where cats never walked, and random stomps would destroy buildings cats needed for navigation. The algorithm spent the vast majority of its time wandering through the wasteland of 5k-30k score solutions, occasionally stumbling onto the 40k-50k "mediocre plateau" where one cat successfully reached its bed.</p>
+
+                <p>But the real killer was that single-command mutations were far too myopic to escape these plateaus. Getting from 40k to 100k+ required coordinated changes, not just pure random simulation. If you wanted three cats in bed to trigger the 3x and 5x multipliers, it meant building paths that required 3-5 turn commands working together and cats making it far into the playing field.</p>
+
+                <p>Without any heuristic, the search wandered aimlessly through the plateau. The cooling schedule made things worse: escaping a 40k local maximum to reach the 120k+ global maximum often required temporarily dropping to 20k-30k while rearranging commands, but once the temperature dropped low enough, the algorithm refused to make these necessary sacrifices.</p>
+
+                <div class="footer-note">
+                    Thanks for reading. If you have questions or want to chat about ML, feel free to reach out on <a href="https://linkedin.com/in/adamkulikowski">LinkedIn</a> or <a href="mailto:adamkul0126@gmail.com">email</a>.
+                </div>
+            </div>
+        </article>
+    </div>
+</body>
+</html>
