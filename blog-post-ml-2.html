@@ -329,7 +329,7 @@
 
                 <div class="meta">
                     <span class="author">Adam Kulikowski</span>
-                    <time datetime="2025-01-15">January 15, 2025</time>
+                    <time datetime="2025-10-20">October 20, 2025</time>
                 </div>
             </header>
 
@@ -476,7 +476,7 @@
 
                 <p>Bouncing around ideas with my friend Kevin, we ultimately decided simulated annealing would work best. The idea behind simulated annealing is like the real metallurgical process: heat everything up and let it cool down. By heating everything up, we mean trying a lot of random possibilities across a lot of different sequence types. Then by cooling down, we mean narrowing in on what worked best and optimizing that.</p>
 
-                <p>Simulated annealing works well here because of the nature of the game. The game has a lot of "good but not great" solutions. Solutions that get you 30-40k points, but are far from the optimal solution. However, usually once you find some 30-40k solution, you can usually optimize it better to get a better score of around 70-80k. The advantage of simulated annealing was that we could try a lot of different paths, find some "good but not great solutions" and then the cool down would be able to optimize it.</p>
+                <p>Simulated annealing works well here because of the nature of the game. The game has a lot of "good but not great" solutions. Solutions that get you 30-40k points, but are far from the optimal solution. However, usually once you find some 30-40k solution, you can usually optimize it better to get a better score of around 70-80k. The advantage of simulated annealing was that you can try a lot of different paths, find some "good but not great solutions" and then the cool down would be able to optimize it.</p>
 
                 <p>So that's exactly what I did. I created a basic simulating annealing algorithm.</p>
 
@@ -589,7 +589,7 @@
                     <img src="assets/ml-post-images/10s.png" alt="10 Second Runs" style="max-width: 70%;">
                 </div>
 
-                <p>And with that, I was getting scores that were really good. I mean really really good.</p>
+                <p>By restarting from a random point many times, the algorithm was able to get a better change of finding those 150k+ divots. And with that, I was getting scores that were really good. I mean really really good.</p>
 
                 <h2 id="results">Results</h2>
 
@@ -597,7 +597,7 @@
 
                 <p>Hardware: Macbook Air M2 (2022)<br>
                 Compute Time: ~10 minutes<br>
-                Paths Explored each Time: ~50,000,000</p>
+                Paths Explored each Time: ~50,000,000 (still a small fraction of 6^31 possibilities)</p>
 
                 <p>155125<br>
                 185625<br>
