@@ -501,11 +501,120 @@
 
                 <p>Given that high scores for this game can get up to 100k+, this was just not good enough.</p>
 
-                <p>The failure came down to a mismatch between how simulated annealing explores and what this problem actually required. First, the search space was absolutely massive. Most random command placements produced terrible scores because random turns would send cats into walls or spike traps, random powerups would be placed where cats never walked, and random stomps would destroy buildings cats needed for navigation. The algorithm spent the vast majority of its time wandering through the wasteland of 5k-30k score solutions, occasionally stumbling onto the 40k-50k "mediocre plateau" where one cat successfully reached its bed.</p>
+                <p>After some time struggling with why this wasn't working, I realized this failure came down to a mismatch between how simulated annealing explores and what this problem actually required. First, the search space was absolutely massive. Most random command placements produced terrible scores because random turns would send cats into walls or spike traps, random powerups would be placed where cats never walked, and random stomps would destroy buildings cats needed for navigation. The algorithm spent the vast majority of its time wandering through the wasteland of 5k-30k score solutions, occasionally stumbling onto the 40k-50k "mediocre plateau" where one cat successfully reached its bed.</p>
 
                 <p>But the real killer was that single-command mutations were far too myopic to escape these plateaus. Getting from 40k to 100k+ required coordinated changes, not just pure random simulation. If you wanted three cats in bed to trigger the 3x and 5x multipliers, it meant building paths that required 3-5 turn commands working together and cats making it far into the playing field.</p>
 
                 <p>Without any heuristic, the search wandered aimlessly through the plateau. The cooling schedule made things worse: escaping a 40k local maximum to reach the 120k+ global maximum often required temporarily dropping to 20k-30k while rearranging commands, but once the temperature dropped low enough, the algorithm refused to make these necessary sacrifices.</p>
+
+                <div class="image-container">
+                    <img src="assets/ml-post-images/cats.png" alt="Cats" style="max-width: 70%;">
+                </div>
+
+                <h3>The Optimization</h3>
+
+                <p>After the disappointing results from the naive approach, I took a step back.</p>
+
+                <p>How did I find good solutions when I played the game?<br>
+                Getting all the cats in the bed. This is a sure way to get a "pretty good" score, since that last cat gets a 5x multiplier. All pretty good to amazing scores had all cats in the bed.</p>
+
+                <p>So instead of using just score, I created new way to compare outcomes of simulated annealing:</p>
+
+                <p>fitness = score - (total_distance_to_beds × 500)</p>
+
+                <p>The idea was to penalize the routes that did not lead cats closer to their beds. Now a 40k solution with cats close to beds (distance=5, fitness=37,500) was seen as significantly better than a 40k solution with cats far away (distance=20, fitness=30,000), even though they had identical game scores.</p>
+
+                <p>In essence, this new heuristic would "pull" the simulated annealing towards the solutions where the cats became closer and closer to the beds.</p>
+
+                <div class="image-container">
+                    <img src="assets/ml-post-images/arrows.png" alt="Arrows showing optimization direction" style="max-width: 90%;">
+                </div>
+
+                <p>The algorithm gained a gradient to follow. It could "see" progress toward the goal even when the score was stuck. Crucially, this gave the algorithm patience during rearrangements: when modifying commands to build a better path, the score might temporarily drop, but if cats were getting closer to beds overall, the fitness would improve and the change would be accepted.</p>
+
+                <p>Then a small change was to adjust cooling for a number of iterations. So a 1 minute run would cool faster than a 5 minute run.</p>
+
+                <p>The results were dramatic. Where the naive approach consistently stalled at 40k-50k, the new approach blew the ballpark with its first run of a score of 121,000!!</p>
+
+                <p>The distance heuristic guided the search toward regions where all three cats could reach their beds, unlocking the massive score multipliers (3× for second arrival, 5× for third arrival) that made 100k+ scores possible.</p>
+
+                <p>The idea for this optimization actually is the same heuristic which guides algorithms like Google Maps to find the best solution. That's a separate topic but I have a whole site exploring how that works. In this case the pure simulated annealing was BFS, and the optimization was A*.</p>
+
+                <div class="image-container">
+                    <div style="display: flex; justify-content: center; gap: 20px;">
+                        <div style="flex: 1; text-align: center;">
+                            <video autoplay loop muted playsinline style="max-width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                                <source src="assets/ml-post-images/bfs.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                            <div style="margin-top: 10px; font-weight: 600;">BFS</div>
+                        </div>
+                        <div style="flex: 1; text-align: center;">
+                            <video autoplay loop muted playsinline style="max-width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                                <source src="assets/ml-post-images/a_.mp4" type="video/mp4">
+                                Your browser does not support the video tag.
+                            </video>
+                            <div style="margin-top: 10px; font-weight: 600;">A*</div>
+                        </div>
+                    </div>
+                    <div class="image-subtext">
+                        From secretsofmaps, a site I built to teach people how Google Maps works
+                    </div>
+                </div>
+
+                <h3>The Final Optimization</h3>
+
+                <p>While my algorithm could find great scores of 120k or even 140k, it still wasn't the best. How did I know this? Me and my friends could usually find a better solution if we worked together.</p>
+
+                <p>I started looking through the output of the simulated annealing. I realized for a 10 minute run, a best score was usually found in the first minute or two. Then it never changed. What was happening is that the algorithm was getting "stuck" in local maxima and never exploring the better maximas.</p>
+
+                <div class="image-container">
+                    <img src="assets/ml-post-images/SA.gif" alt="Simulated Annealing Visualization" style="max-width: 70%;">
+                </div>
+
+                <div class="image-container">
+                    <img src="assets/ml-post-images/stuck.png" alt="Algorithm Stuck in Local Maxima" style="max-width: 70%;">
+                    <div class="image-subtext">
+                        The algorithm would cool down and find a good solution, but only one that was locally optimal
+                    </div>
+                </div>
+
+                <p>So instead of doing a full 10 minute run and letting it cool down, I did runs of smaller time frames to get more "random starts". This would allow me to explore a bunch of different paths instead of just one path, but very widely. I messed around with different times on the same map and I found 5 seconds was too short (good paths weren't fully discovered). And then 10 seconds and 15 seconds gave roughly the same results.</p>
+
+                <div class="image-container">
+                    <img src="assets/ml-post-images/not_complete.png" alt="Not Complete" style="max-width: 70%;">
+                </div>
+
+                <div class="image-container">
+                    <img src="assets/ml-post-images/10s.png" alt="10 Second Runs" style="max-width: 70%;">
+                </div>
+
+                <p>And with that, I was getting scores that were really good. I mean really really good.</p>
+
+                <h2 id="results">Results</h2>
+
+                <p>I did 10 test runs with the final version of simulated annealing, giving my algorithm about 10 minutes of compute, with 5 minutes reserved for me to be able to input the game map into my program and then copy the program's results back into the game.</p>
+
+                <p>Hardware: Macbook Air M2 (2022)<br>
+                Compute Time: ~10 minutes<br>
+                Paths Explored each Time: ~50,000,000</p>
+
+                <p>155125<br>
+                185625<br>
+                97000<br>
+                215000<br>
+                85375<br>
+                197375<br>
+                215000<br>
+                134625<br>
+                102000<br>
+                204125</p>
+
+                <p>Median: 191500</p>
+
+                <p>My algorithm Test:<br>
+                Mean: 159125<br>
+                Std. Dev: 51211</p>
 
                 <div class="footer-note">
                     Thanks for reading. If you have questions or want to chat about ML, feel free to reach out on <a href="https://linkedin.com/in/adamkulikowski">LinkedIn</a> or <a href="mailto:adamkul0126@gmail.com">email</a>.
