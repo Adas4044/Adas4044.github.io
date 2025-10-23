@@ -375,6 +375,16 @@
 
                 <p>The most obvious of these problems was that since this was a game designed to be played by people, there was no way to run this game millions (if not more) times. Manually loading the game and recording the state takes about 1-2 minutes. Since I don't have 1-2 million minutes of free time, I had to look for another approach.</p>
 
+                <div class="image-container">
+                    <video autoplay loop muted playsinline style="max-width: 100%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        <source src="assets/ml-post-images/init_play.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="image-subtext">
+                        Sample solution from the kaiju game gameplay
+                    </div>
+                </div>
+
                 <h2 id="solution">The Solution</h2>
 
                 <p>So I decided to go for another approach.</p>
@@ -593,11 +603,97 @@
 
                 <h2 id="results">Results</h2>
 
+                <div class="image-container">
+                    <video autoplay loop muted playsinline style="max-width: 100%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        <source src="assets/ml-post-images/playthrough.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                    <div class="image-subtext">
+                        A playthrough of the game using the algorithm
+                    </div>
+                </div>
+
                 <p>I did 10 test runs with the final version of simulated annealing, giving my algorithm about 10 minutes of compute, with 5 minutes reserved for me to be able to input the game map into my program and then copy the program's results back into the game.</p>
 
                 <p>Hardware: Macbook Air M2 (2022)<br>
                 Compute Time: ~10 minutes<br>
-                Paths Explored each Time: ~50,000,000 (still a small fraction of 6^31 possibilities)</p>
+                Paths Explored each Time: ~50,000,000 (a small fraction of 6^31 possibilities)</p>
+
+                <h2 id="video-results">Video Results</h2>
+
+                <p>Here are all 10 runs of my algorithm in action:</p>
+
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; margin: 40px 0;">
+                    <div style="text-align: center;">
+                        <video autoplay loop muted playsinline style="width: 100%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                            <source src="assets/ml-post-images/results/s1.mp4" type="video/mp4">
+                        </video>
+                        <div style="margin-top: 12px; font-size: 18px; font-weight: 600;">Score: 155,125</div>
+                    </div>
+
+                    <div style="text-align: center;">
+                        <video autoplay loop muted playsinline style="width: 100%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                            <source src="assets/ml-post-images/results/s2.mp4" type="video/mp4">
+                        </video>
+                        <div style="margin-top: 12px; font-size: 18px; font-weight: 600;">Score: 185,625</div>
+                    </div>
+
+                    <div style="text-align: center;">
+                        <video autoplay loop muted playsinline style="width: 100%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                            <source src="assets/ml-post-images/results/s3.mp4" type="video/mp4">
+                        </video>
+                        <div style="margin-top: 12px; font-size: 18px; font-weight: 600;">Score: 97,000</div>
+                    </div>
+
+                    <div style="text-align: center;">
+                        <video autoplay loop muted playsinline style="width: 100%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                            <source src="assets/ml-post-images/results/s4.mp4" type="video/mp4">
+                        </video>
+                        <div style="margin-top: 12px; font-size: 18px; font-weight: 600;">Score: 215,000</div>
+                    </div>
+
+                    <div style="text-align: center;">
+                        <video autoplay loop muted playsinline style="width: 100%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                            <source src="assets/ml-post-images/results/s5.mp4" type="video/mp4">
+                        </video>
+                        <div style="margin-top: 12px; font-size: 18px; font-weight: 600;">Score: 85,375</div>
+                    </div>
+
+                    <div style="text-align: center;">
+                        <video autoplay loop muted playsinline style="width: 100%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                            <source src="assets/ml-post-images/results/s6.mp4" type="video/mp4">
+                        </video>
+                        <div style="margin-top: 12px; font-size: 18px; font-weight: 600;">Score: 197,375</div>
+                    </div>
+
+                    <div style="text-align: center;">
+                        <video autoplay loop muted playsinline style="width: 100%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                            <source src="assets/ml-post-images/results/s7.mp4" type="video/mp4">
+                        </video>
+                        <div style="margin-top: 12px; font-size: 18px; font-weight: 600;">Score: 215,000</div>
+                    </div>
+
+                    <div style="text-align: center;">
+                        <video autoplay loop muted playsinline style="width: 100%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                            <source src="assets/ml-post-images/results/s8.mp4" type="video/mp4">
+                        </video>
+                        <div style="margin-top: 12px; font-size: 18px; font-weight: 600;">Score: 134,625</div>
+                    </div>
+
+                    <div style="text-align: center;">
+                        <video autoplay loop muted playsinline style="width: 100%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                            <source src="assets/ml-post-images/results/s9.mp4" type="video/mp4">
+                        </video>
+                        <div style="margin-top: 12px; font-size: 18px; font-weight: 600;">Score: 102,000</div>
+                    </div>
+
+                    <div style="text-align: center;">
+                        <video autoplay loop muted playsinline style="width: 100%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                            <source src="assets/ml-post-images/results/s10.mp4" type="video/mp4">
+                        </video>
+                        <div style="margin-top: 12px; font-size: 18px; font-weight: 600;">Score: 204,125</div>
+                    </div>
+                </div>
 
                 <p>155125<br>
                 185625<br>
