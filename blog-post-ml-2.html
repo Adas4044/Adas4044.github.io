@@ -376,7 +376,7 @@
                 <p>The most obvious of these problems was that since this was a game designed to be played by people, there was no way to run this game millions (if not more) times. Manually loading the game and recording the state takes about 1-2 minutes. Since I don't have 1-2 million minutes of free time, I had to look for another approach.</p>
 
                 <div class="image-container">
-                    <video autoplay loop muted playsinline style="max-width: 100%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    <video autoplay loop muted playsinline style="max-width: 70%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
                         <source src="assets/ml-post-images/init_play.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
@@ -513,7 +513,7 @@
 
                 <p>After some time struggling with why this wasn't working, I realized this failure came down to a mismatch between how simulated annealing explores and what this problem actually required. First, the search space was absolutely massive. Most random command placements produced terrible scores because random turns would send cats into walls or spike traps, random powerups would be placed where cats never walked, and random stomps would destroy buildings cats needed for navigation. The algorithm spent the vast majority of its time wandering through the wasteland of 5k-30k score solutions, occasionally stumbling onto the 40k-50k "mediocre plateau" where one cat successfully reached its bed.</p>
 
-                <p>But the real killer was that single-command mutations were far too myopic to escape these plateaus. Getting from 40k to 100k+ required coordinated changes, not just pure random simulation. If you wanted three cats in bed to trigger the 3x and 5x multipliers, it meant building paths that required 3-5 turn commands working together and cats making it far into the playing field.</p>
+                <p>But the real killer was that single-command mutations were far too small to escape these plateaus. Getting from 40k to 100k+ required coordinated changes, not just pure random simulation. If you wanted three cats in bed to trigger the 3x and 5x multipliers, it meant building paths that required 3-5 turn commands working together and cats making it far into the playing field.</p>
 
                 <p>Without any heuristic, the search wandered aimlessly through the plateau. The cooling schedule made things worse: escaping a 40k local maximum to reach the 120k+ global maximum often required temporarily dropping to 20k-30k while rearranging commands, but once the temperature dropped low enough, the algorithm refused to make these necessary sacrifices.</p>
 
@@ -544,7 +544,7 @@
 
                 <p>Then a small change was to adjust cooling for a number of iterations. So a 1 minute run would cool faster than a 5 minute run.</p>
 
-                <p>The results were dramatic. Where the naive approach consistently stalled at 40k-50k, the new approach blew the ballpark with its first run of a score of 121,000!!</p>
+                <p>The results were dramatic. Where the naive approach consistently stalled at 40k-50k, the new approach had its first run of a score of 121,000!!</p>
 
                 <p>The distance heuristic guided the search toward regions where all three cats could reach their beds, unlocking the massive score multipliers (3× for second arrival, 5× for third arrival) that made 100k+ scores possible.</p>
 
@@ -589,7 +589,7 @@
                     </div>
                 </div>
 
-                <p>So instead of doing a full 10 minute run and letting it cool down, I did runs of smaller time frames to get more "random starts". This would allow me to explore a bunch of different paths instead of just one path, but very widely. I messed around with different times on the same map and I found 5 seconds was too short (good paths weren't fully discovered). And then 10 seconds and 15 seconds gave roughly the same results.</p>
+                <p>So instead of doing a full 10 minute run and letting it cool down too much to where it was exploring too many unviable paths, I did runs of smaller time frames to get more "random starts". This would allow me to explore a bunch of different paths instead of just one path, but very widely. I messed around with different times on the same map and I found 5 seconds was too short (good paths weren't fully discovered). And then 10 seconds and 15 seconds gave roughly the same results.</p>
 
                 <div class="image-container">
                     <img src="assets/ml-post-images/not_complete.png" alt="Not Complete" style="max-width: 70%;">
@@ -599,7 +599,7 @@
                     <img src="assets/ml-post-images/10s.png" alt="10 Second Runs" style="max-width: 70%;">
                 </div>
 
-                <p>By restarting from a random point many times, the algorithm was able to get a better change of finding those 150k+ divots. And with that, I was getting scores that were really good. I mean really really good.</p>
+                <p>By restarting from a random point many times, the algorithm was able to get a better change of finding those 150k+ divots. When add the power of multithreading (running these random points in unison), that greatly expanded my computational power from just 1 cpu core to all 8 cpu cores. And with that, I was getting scores that were really good. I mean really really good.</p>
 
                 <h2 id="results">Results</h2>
 
@@ -619,9 +619,9 @@
                 Compute Time: ~10 minutes<br>
                 Paths Explored each Time: ~50,000,000 (a small fraction of 6^31 possibilities)</p>
 
-                <h2 id="video-results">Video Results</h2>
+                <h2 id="video-results">Putting it to the Test</h2>
 
-                <p>Here are all 10 runs of my algorithm in action:</p>
+                <p>Here is a squance of 10 runs consecutive of my algorithm to give you an idea of how it performs over a wide range of maps:</p>
 
                 <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; margin: 40px 0;">
                     <div style="text-align: center;">
@@ -695,33 +695,68 @@
                     </div>
                 </div>
 
-                <p>155125<br>
-                185625<br>
-                97000<br>
-                215000<br>
-                85375<br>
-                197375<br>
-                215000<br>
-                134625<br>
-                102000<br>
-                204125</p>
+                <p>My algorithm achieved the following scores across 10 consecutive runs:</p>
 
-                <p><strong>My Algorithm:</strong><br>
-                Median: 191500<br>
-                Mean: 159125<br>
-                Std. Dev: 51211</p>
-
-                <p>Based on information that Roblox itself has published <a href="https://educationaldatamining.org/edm2024/proceedings/2024.EDM-posters.96/index.html" style="color: inherit; text-decoration: underline;">here</a>, the average score for candidates and focused users playing Kaiju Cats is:<br>
-                <strong>On-Task Submission:</strong><br>
-                Mean: 40,827<br>
-                Std. Dev: 21,056</p>
+                <p style="text-align: center; font-family: monospace; line-height: 1.8;">
+                155,125 | 185,625 | 97,000 | 215,000 | 85,375<br>
+                197,375 | 215,000 | 134,625 | 102,000 | 204,125
+                </p>
 
                 <div class="highlight-box">
-                    Z = (159125 - 40827) / 21056 = 5.61826<br>
-                    Top 0.000001% level of players in this game<br>
-                    Beats 99.9999999999989% of players<br>
-                    Of 8 billion people, only 79 would beat it on average.
+                    <strong>My Algorithm Performance:</strong><br>
+                    Mean: 159,125 | Median: 191,500 | Std. Dev: 51,211<br><br>
+                    <strong>Hardware:</strong> Macbook Air M2 (2022)<br>
+                    <strong>Compute Time:</strong> ~10 minutes<br>
+                    <strong>Paths Explored each Time:</strong> ~50,000,000
                 </div>
+
+                <p>To put this in perspective, based on <a href="https://educationaldatamining.org/edm2024/proceedings/2024.EDM-posters.96/index.html" style="color: inherit; text-decoration: underline;">data published by Roblox</a>, the average on-task submission score for candidates is 40,827 (± 21,056). My algorithm's mean score of 159,125 represents a <strong>2.9x improvement</strong> over the human average, playing better than 99.999999% of people.</p>
+
+                <div class="highlight-box">
+                    <strong>Statistical Significance:</strong><br>
+                    Z-score = (159,125 - 40,827) / 21,056 = 5.62<br>
+                    This places the algorithm in the top 0.000001% of players.<br>
+                    In other words: if 8 billion people played this game, statistically only 79 would score higher.
+                </div>
+
+                <h2>Key Takeaways</h2>
+
+                <p>The lesson here echoes a fundamental truth across AI: raw computational power needs guidance. Deep Blue didn't defeat Garry Kasparov through brute force alone. It had chess grandmasters encoding years of strategic knowledge into its evaluation function, teaching it that controlling the center matters and king safety is crucial. AlphaGo didn't learn Go from scratch, but it was trained on millions of games from professional players, absorbing human intuition about promising positions before it could surpass human play.</p>
+
+                <p>My simulated annealing optimizer followed the same arc. The naive version was directionless, wandering through mediocre 40k solutions. The distance heuristic, one simple insight that "cats near beds are valuable", transformed everything. It gave the algorithm vision, a way to recognize progress even when scores plateaued. Results improved 2-3x almost immediately, jumping from 40k-50k to 100k-120k+. Then with testing and observation of the simulated annealing, tweaking the core algorithm allowed for the performance to find the truly high results.</p>
+
+                <h2>Ethics Disclaimer</h2>
+
+                <p>I never used this algorithm to cheat on Roblox's assessment. I developed it much later after I took the assessment. However, I am 99%+ confident this algorithm could pass the Roblox interview Kaiju Cats game. As much as I love sharing my ideas with people, to prevent applicants from using this to cheat on the actual Roblox assessment, I have decided to keep this Github repo private.</p>
+
+                <p>While I didn't end up making it through the entire Roblox process, I want to thank them for making this interview process just a tad bit more exciting :)</p>
+
+                <div class="image-container">
+                    <img src="assets/ml-post-images/passing.png" alt="Passing" style="max-width: 70%;">
+                    <div class="image-subtext">
+                        While I did not use this tool to cheat on the interview, I am 99% sure this tool could beat the Kaiju Cats game
+                    </div>
+                </div>
+
+                <h2>Could LLMs do better?</h2>
+
+                <p>I decided to see if AI could do better. After I gave Claude the context of the game and the rules I prompted: "Be free, you no longer need to use simulated annealing. Find the best algorithm: it can be either improving my simulated annealing or a completely new approach. I expect a score of 100k+ within 5 minutes of computation."</p>
+
+                <p>Claude came up with an elaborate Genetic algorithm and I some code to test it. The results: extremely disappointing. Claude's best approach: Genetic Mutation Algorithm.</p>
+
+                <p><strong>Population:</strong> Start with 200 random solutions<br>
+                <strong>Selection:</strong> Pick best solutions as "parents" (survival of fittest)<br>
+                <strong>Crossover:</strong> Combine two parents to create "child" solution<br>
+                <strong>Mutation:</strong> Randomly change some children<br>
+                <strong>Repeat:</strong> Evolve for 2000 generations</p>
+
+                <p>Best scores: 20k-30k range</p>
+
+                <p>While LLMs are good for formatting and basic code, they struggle to understand games that require intuition.</p>
+
+                <h2>Other Potential Ideas</h2>
+
+                <p>Maximizing the number of powerplants one cat could get. In the very best scores, you "sacrifice" the 2 cats in the bed as fast as possible and then take the last cat and try to get the maximum score and the maximum number of powerplants with that cat. I briefly tried doing this, but with little improvements.</p>
 
                 <div class="footer-note">
                     Thanks for reading. If you have questions or want to chat about ML, feel free to reach out on <a href="https://linkedin.com/in/adamkulikowski">LinkedIn</a> or <a href="mailto:adamkul0126@gmail.com">email</a>.
