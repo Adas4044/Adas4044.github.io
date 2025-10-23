@@ -312,9 +312,10 @@
                 <li><a href="#intro">The Challenge</a></li>
                 <li><a href="#possible">Is This Even Possible?</a></li>
                 <li><a href="#approach">My First Approach</a></li>
-                <li><a href="#problems">The Problems</a></li>
-                <li><a href="#solution">The Solution</a></li>
-                <li><a href="#speed">Speed Matters</a></li>
+                <li><a href="#simulator">The Problems</a></li>
+                <li><a href="#ml">The Machine Learning</a></li>
+                <li><a href="#results">Results</a></li>
+                <li><a href="#ethics">Ethics Disclaimer</a></li>
             </ul>
         </nav>
 
@@ -365,7 +366,7 @@
 
                 <p>My first challenge in this project was how to even approach the problem. Could it even be solved? As with all machine learning, I started to think about what would be the goal metric? How could I measure how good my algorithm was performing? How would I prune off combinations of movements from the game, as searching all of them was infeasible?</p>
 
-                <h2 id="problems">The Problems</h2>
+                <h2 id="simulator">The Problems</h2>
 
                 <p>There were several problems with this approach:</p>
 
@@ -385,15 +386,9 @@
                     </div>
                 </div>
 
-                <h2 id="solution">The Solution</h2>
+                <p>So I decided to go for another approach: build a simulator which could accurately simulate a game's map, then use machine learning to run millions of simulations on that specific game map to find the map's most optimal score.</p>
 
-                <p>So I decided to go for another approach.</p>
-
-                <p>Build a simulator which could accurately simulate a game's map.</p>
-
-                <p>Use machine learning to run millions of simulations on that specific game map to find the map's most optimal score.</p>
-
-                <h2 id="speed">Speed Matters</h2>
+                <h3>Speed Matters</h3>
 
                 <p>So I started building the simulator in Python because I figured it would be simple and easy to build. Big mistake. Part way through building it, one of my friends brought up that speed would be of the utmost importance in this project. A difference in speed of the simulator of even a few milliseconds would be compounded over the millions of iterations I would need to run. Here's a cool graph online I found showing this problem:</p>
 
@@ -725,7 +720,7 @@
 
                 <p>My simulated annealing optimizer followed the same arc. The naive version was directionless, wandering through mediocre 40k solutions. The distance heuristic, one simple insight that "cats near beds are valuable", transformed everything. It gave the algorithm vision, a way to recognize progress even when scores plateaued. Results improved 2-3x almost immediately, jumping from 40k-50k to 100k-120k+. Then with testing and observation of the simulated annealing, tweaking the core algorithm allowed for the performance to find the truly high results.</p>
 
-                <h2>Ethics Disclaimer</h2>
+                <h2 id="ethics">Ethics Disclaimer</h2>
 
                 <p>I never used this algorithm to cheat on Roblox's assessment. I developed it much later after I took the assessment. However, I am 99%+ confident this algorithm could pass the Roblox interview Kaiju Cats game. As much as I love sharing my ideas with people, to prevent applicants from using this to cheat on the actual Roblox assessment, I have decided to keep this Github repo private.</p>
 
@@ -753,6 +748,16 @@
                 <p>Best scores: 20k-30k range</p>
 
                 <p>While LLMs are good for formatting and basic code, they struggle to understand games that require intuition.</p>
+
+                <hr>
+
+                <div style="background: #f9f9f9; border: 1px solid #e5e5e5; border-radius: 8px; padding: 30px; margin: 50px 0 60px 0; display: flex; align-items: center; gap: 25px;">
+                    <img src="./profile.JPG" alt="Adam Kulikowski" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; object-position: 15% center; flex-shrink: 0;">
+                    <div>
+                        <p style="margin: 0 0 12px 0; font-size: 16px;">I'm <strong>Adam Kulikowski</strong>, a Computer Science student at Georgia Tech passionate about software engineering and machine learning.</p>
+                        <a href="index.html" style="color: #666; text-decoration: underline; font-size: 15px;">← Return to Main</a>
+                    </div>
+                </div>
 
                 <h2>Other Potential Ideas</h2>
 
