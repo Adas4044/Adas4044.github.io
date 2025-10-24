@@ -329,7 +329,7 @@
                 </div>
 
                 <div class="meta">
-                    <span class="author">Adam Kulikowski</span>
+                    <span class="author"><a href="index.html" style="color: inherit; text-decoration: none;">Adam Kulikowski</a></span>
                     <time datetime="2025-10-20">October 20, 2025</time>
                 </div>
             </header>
@@ -337,21 +337,27 @@
             <div class="article-content">
                 <h2 id="intro">The Challenge</h2>
 
-                <p>Unlike most other companies, Roblox takes a bit of a different approach when it comes to interviews. Instead of the classic Leetcode coding style assessments, they use problem solving games. One of these games is called Kaiju Cats. It's a game where you control the movement of 3 cats and try to maximize the amount of points they get.</p>
+                <p>Unlike most other companies, Roblox takes a bit of a different approach when it comes to interviews. Instead of the classic Leetcode coding style assessments, they use problem solving games. One of these games is called Kaiju Cats. It's a game where you control the movement of 3 cats and try to maximize the amount of points they get as they move around the board.</p>
 
                 <p>After learning about popular machine learning algorithms like Deep Blue and Alpha Go in my university class, I wanted to create something similar that could learn and master this game. I was initially thinking of using a reinforcement approach: simulate millions of games and use either random forest or a neural net style algorithm to develop heuristics for solving games.</p>
 
-                <h2 id="possible">Is This Even Possible?</h2>
+                <h2 id="rules">Rules of the Game</h2>
 
-                <p>To start off, I had to ask myself the question of is this even possible? Upon my quick initial count there are 25-30 squares where you can place movement tiles (I later found out it's 31!). Also we are looking for the combinations here not permutations: (Left, Stomp, Right) is going to be very different from (Right, Stomp, Left) even though they use the same commands.</p>
+                <p>The primary objective is to maximize the combined power of three cats within a hard limit of 15 turns. Player actions are defined by attaching commands to "Attachment Points" on building floors, which directs the cats' movement through the city. Cats gain fixed power values for destroying standard building floors, but can also destroy "Power Plants" to double their current power. The grid also features traps that modify a cat's state or score: Mud (stuck for one turn), Spike Traps (halves current power), and Boulders (reverses direction). The game concludes as cats reach their matching beds, applying a critical, order-based bonus: the first cat gets +2,000 power, the second multiplies its power by 3, and the third multiplies its power by 5.</p>
+
+                <p>You can play the game on Roblox here: <a href="https://www.roblox.com/games/13977123257/Kaiju-Cats" style="color: inherit; text-decoration: underline;">https://www.roblox.com/games/13977123257/Kaiju-Cats</a></p>
 
                 <div class="image-container">
                     <img src="assets/ml-post-images/start.png" alt="Kaiju Cats Game">
                 </div>
 
+                <h2 id="possible">Is This Even Possible?</h2>
+
+                <p>To start off, I had to ask myself the question of is this even possible? Upon my quick initial count there are 25-30 squares where you can place movement tiles (I later found out it's 31!). Also we are looking for the combinations here not permutations: (Left, Stomp, Right) is going to be very different from (Right, Stomp, Left) even though they use the same commands.</p>
+
                 <p>Since each tile can be one of 6 commands (up, down, left, right, stomp, powerup), that's 6 possible choices for each square. I assumed 30 just for simplicity.</p>
 
-                <p>That means that there is a possibility of 6^30 combinations a game can have or 2.210 * 10^24.</p>
+                <p>That means that there is a possibility of 6<sup>30</sup> combinations a game can have.</p>
 
                 <div class="highlight-box">
                     If you're curious, that's: 61,159,090,448,414,546,283,439,041 possible combinations.<br>
@@ -394,16 +400,11 @@
 
                 <div class="image-container">
                     <img src="assets/ml-post-images/programming_language_comparison.png" alt="Programming Language Speed Comparison" style="max-width: 55%;">
-                    <div class="image-subtext">
-                        For those wondering why Python is so slow, it has to do with its various features such as dynamic typing, garbage collection, and also how it's compiled.
-                    </div>
                 </div>
-
-                <p>Now you can speed some of these things with libraries like numpy, but I figured it would be better just to avoid Python just in case I got stuck somewhere and would have to rewrite everything.</p>
 
                 <p>Now I don't know C well enough to build this out, but I did several undergrad classes in Java, so I felt comfortable using that to build out the simulator.</p>
 
-                <p>The core of the simulator is built around an object-oriented design with two main components: the GameSimulator class and a hierarchy of Tile objects. Each tile type (buildings, power plants, mud, spike traps, etc.) inherits from an abstract Tile class and implements its own behavior when a cat steps on it. For example, when a cat stomps a building, the building awards power based on its size (250 for small houses, 500 for big houses), destroys its top floor, and executes any command attached to that floor. For power plants, I have a destroyed attribute. If (!destroyed), then apply the 2x power, otherwise, if destroyed, ignore. For buildings, there is a simple remainingFloors counter.</p>
+                <p>The core of the simulator is built around an object-oriented design with two main components: the GameSimulator class and a hierarchy of Tile objects. Each tile type (buildings, power plants, mud, spike traps, etc.) inherits from an abstract Tile class and implements its own behavior when a cat steps on it. For example, when a cat stomps a building, the building awards power based on its size (250 for small houses, 500 for big houses), destroys its top floor, and executes any command attached to that floor.</p>
 
                 <div class="image-container">
                     <div style="display: flex; justify-content: center; gap: 20px;">
@@ -429,11 +430,11 @@
                 <div class="image-container">
                     <img src="assets/ml-post-images/active.png" alt="Active State" style="max-width: 70%;">
                     <div class="image-subtext">
-                        Snipped from the code showing how the turn simulation works
+                        Snippet from the code showing how the turn simulation works
                     </div>
                 </div>
 
-                <p>The second phase is collision detection and movement resolution. This is where things get interesting. When a cat tries to move, the simulator first checks if the target tile is passable. Walls (represented by #) and boulders (X) are impassable, so if a cat tries to move into one, it immediately reverses direction. If multiple cats try to move to the same tile in the same turn, there's a fight. The winner is determined first by current power. If there's a tie in power, hierarchy breaks it: Blue beats Green beats Red.</p>
+                <p>The second phase is collision detection and movement resolution. When a cat tries to move, the simulator first checks if the target tile is passable. Walls (represented by #) and boulders (X) are impassable, so if a cat tries to move into one, it immediately reverses direction. If multiple cats try to move to the same tile in the same turn, there's a fight. The winner is determined first by current power. If there's a tie in power, hierarchy breaks it: Blue beats Red beats Green.</p>
 
                 <div class="image-container">
                     <video autoplay loop muted playsinline style="max-width: 100%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
@@ -451,10 +452,6 @@
                     <li>DEFEATED status (lost all their power)</li>
                 </ul>
                 <p>Otherwise it runs for exactly 15 turns.</p>
-
-                <p>Now part one alone seemed simple at first, but there were several challenges that quickly arose that were never addressed in the rules? For example:</p>
-
-                <p>If cats land on the same square, do they fight first or does one gain the points on the square first? If a powerplant has a bonus on it, is the 2x multiplier from the powerplant applied first or are the points added? The answer to these questions is that they fight first, and 2x multiplier is applied first. But these were both things not explicitly stated in the rules. And why would they be! No casual player would care about them. But for my machine learning algorithm to work, I had to be certain the simulator was correct. Even a small mistake in the simulator could cause my algorithm to prioritize a wrong decision and end up with a high score that could never be achieved in the real game.</p>
 
                 <p>And here is how I structured the input and output:</p>
 
@@ -477,7 +474,7 @@
 
                 <h2 id="ml">The Machine Learning</h2>
 
-                <p>This was ultimately the make or break of this project. The number of possibilities was enormous. I had to rule out a few algorithms from the start. Because there was no adversary in this exercise, we could not use alpha-beta pruning like chess algorithms commonly use. Also since there is really no way to label data (and no efficient way to do so), approaches like HMMs or Random Forest would not work.</p>
+                <p>This was ultimately the make or break of this project. The number of possibilities was enormous. I had to rule out a few algorithms from the start. Because there was no adversary in this exercise, we could not use alpha-beta pruning like chess algorithms commonly use. Also since there is really no way to label data (and no efficient way to do so), approaches like Random Forest or K-nearest neighbors would not work.</p>
 
                 <p>Bouncing around ideas with my friend Kevin, we ultimately decided simulated annealing would work best. The idea behind simulated annealing is like the real metallurgical process: heat everything up and let it cool down. By heating everything up, we mean trying a lot of random possibilities across a lot of different sequence types. Then by cooling down, we mean narrowing in on what worked best and optimizing that.</p>
 
@@ -500,7 +497,7 @@
                 (3) modify an existing command<br>
                 (4) make 2-3 changes at once.</p>
 
-                <p>The acceptance criterion was pure simulated annealing: always accept better solutions, and accept worse solutions with probability e^(score/temperature). The temperature started extremely high (100,000) and cooled very slowly over millions of iterations, with an automatic restart mechanism that would reset from scratch every 10,000 iterations without improvement.</p>
+                <p>The acceptance criterion was pure simulated annealing: always accept better solutions, and accept worse solutions with probability e<sup>(score/temperature)</sup>. The temperature started extremely high (100,000) and cooled very slowly over millions of iterations, with an automatic restart mechanism that would reset from scratch every 10,000 iterations without improvement.</p>
 
                 <p>But…..the results were consistently disappointing. The algorithm would quickly climb from 0 to around 30,000-40,000 points in the first thousand iterations, then slowly creep up to 45,000-50,000 over the next few thousand iterations, before completely flatlining. Different runs would converge to different mediocre solutions, usually in the 40k-50k range, with occasional lucky runs hitting 60k-70k.</p>
 
@@ -525,7 +522,9 @@
 
                 <p>So instead of using just score, I created new way to compare outcomes of simulated annealing:</p>
 
-                <p>fitness = score - (total_distance_to_beds × 500)</p>
+                <div style="background: #f5f5f5; padding: 16px; border-radius: 4px; margin: 20px 0; border-left: 3px solid #ddd;">
+                    <p style="margin: 0; font-size: 16px;">fitness = score - (total_distance_to_beds × 500)</p>
+                </div>
 
                 <p>The idea was to penalize the routes that did not lead cats closer to their beds. Now a 40k solution with cats close to beds (distance=5, fitness=37,500) was seen as significantly better than a 40k solution with cats far away (distance=20, fitness=30,000), even though they had identical game scores.</p>
 
@@ -543,7 +542,7 @@
 
                 <p>The distance heuristic guided the search toward regions where all three cats could reach their beds, unlocking the massive score multipliers (3× for second arrival, 5× for third arrival) that made 100k+ scores possible.</p>
 
-                <p>The idea for this optimization actually is the same heuristic which guides algorithms like Google Maps to find the best solution. That's a separate topic but I have a whole site exploring how that works. In this case the pure simulated annealing was BFS, and the optimization was A*.</p>
+                <p>The idea for this optimization actually is the same heuristic which guides algorithms like Google Maps to find the best solution. That's a separate topic but I have a whole site exploring how that works. In this case the pure simulated annealing was like BFS, and the optimization was like A*.</p>
 
                 <div class="image-container">
                     <div style="display: flex; justify-content: center; gap: 20px;">
@@ -594,7 +593,7 @@
                     <img src="assets/ml-post-images/10s.png" alt="10 Second Runs" style="max-width: 70%;">
                 </div>
 
-                <p>By restarting from a random point many times, the algorithm was able to get a better change of finding those 150k+ divots. When add the power of multithreading (running these random points in unison), that greatly expanded my computational power from just 1 cpu core to all 8 cpu cores. And with that, I was getting scores that were really good. I mean really really good.</p>
+                <p>By restarting from a random point many times, the algorithm was able to get a better change of finding those 150k+ divots. By also adding multithreading (running these random points in unison on multiple CPU threads), I greatly expanded my computational power. And with that, I was getting scores that were really good. I mean really really good.</p>
 
                 <h2 id="results">Results</h2>
 
@@ -612,7 +611,7 @@
 
                 <p>Hardware: Macbook Air M2 (2022)<br>
                 Compute Time: ~10 minutes<br>
-                Paths Explored each Time: ~50,000,000 (a small fraction of 6^31 possibilities)</p>
+                Paths Explored each Time: ~50,000,000 (a small fraction of 6<sup>31</sup> possibilities)</p>
 
                 <h2 id="video-results">Putting it to the Test</h2>
 
@@ -716,7 +715,7 @@
 
                 <h2>Key Takeaways</h2>
 
-                <p>The lesson here echoes a fundamental truth across AI: raw computational power needs guidance. Deep Blue didn't defeat Garry Kasparov through brute force alone. It had chess grandmasters encoding years of strategic knowledge into its evaluation function, teaching it that controlling the center matters and king safety is crucial. AlphaGo didn't learn Go from scratch, but it was trained on millions of games from professional players, absorbing human intuition about promising positions before it could surpass human play.</p>
+                <p>The lesson here echoes a fundamental truth across AI: raw computational power needs guidance. Deep Blue didn't defeat Garry Kasparov through brute force alone. It had chess grandmasters encoding years of strategic knowledge into its evaluation function, teaching it that controlling the center matters and king safety is crucial.</p>
 
                 <p>My simulated annealing optimizer followed the same arc. The naive version was directionless, wandering through mediocre 40k solutions. The distance heuristic, one simple insight that "cats near beds are valuable", transformed everything. It gave the algorithm vision, a way to recognize progress even when scores plateaued. Results improved 2-3x almost immediately, jumping from 40k-50k to 100k-120k+. Then with testing and observation of the simulated annealing, tweaking the core algorithm allowed for the performance to find the truly high results.</p>
 
@@ -724,13 +723,10 @@
 
                 <p>I never used this algorithm to cheat on Roblox's assessment. I developed it much later after I took the assessment. However, I am 99%+ confident this algorithm could pass the Roblox interview Kaiju Cats game. As much as I love sharing my ideas with people, to prevent applicants from using this to cheat on the actual Roblox assessment, I have decided to keep this Github repo private.</p>
 
-                <p>While I didn't end up making it through the entire Roblox process, I want to thank them for making this interview process just a tad bit more exciting :)</p>
+                <p>While I didn't end up making it through the entire Roblox process, I ended up learning a lot about ML.</p>
 
                 <div class="image-container">
                     <img src="assets/ml-post-images/passing.png" alt="Passing" style="max-width: 70%;">
-                    <div class="image-subtext">
-                        While I did not use this tool to cheat on the interview, I am 99% sure this tool could beat the Kaiju Cats game
-                    </div>
                 </div>
 
                 <h2>Could LLMs do better?</h2>
@@ -749,19 +745,17 @@
 
                 <p>While LLMs are good for formatting and basic code, they struggle to understand games that require intuition.</p>
 
-                <hr>
+                <h2>Other Potential Ideas</h2>
 
-                <div style="background: #f9f9f9; border: 1px solid #e5e5e5; border-radius: 8px; padding: 30px; margin: 50px 0 60px 0; display: flex; align-items: center; gap: 25px;">
+                <p>Maximizing the number of powerplants one cat could get. In the very best scores, you "sacrifice" the 2 cats in the bed as fast as possible and then take the last cat and try to get the maximum score and the maximum number of powerplants with that cat. I briefly tried doing this, but with little improvements.</p>
+
+                <div style="background: #f9f9f9; border: 1px solid #e5e5e5; border-radius: 8px; padding: 30px; margin: 50px 0 30px 0; display: flex; align-items: center; gap: 25px;">
                     <img src="./profile.JPG" alt="Adam Kulikowski" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; object-position: 15% center; flex-shrink: 0;">
                     <div>
                         <p style="margin: 0 0 12px 0; font-size: 16px;">I'm <strong>Adam Kulikowski</strong>, a Computer Science student at Georgia Tech passionate about software engineering and machine learning.</p>
                         <a href="index.html" style="color: #666; text-decoration: underline; font-size: 15px;">← Return to Main</a>
                     </div>
                 </div>
-
-                <h2>Other Potential Ideas</h2>
-
-                <p>Maximizing the number of powerplants one cat could get. In the very best scores, you "sacrifice" the 2 cats in the bed as fast as possible and then take the last cat and try to get the maximum score and the maximum number of powerplants with that cat. I briefly tried doing this, but with little improvements.</p>
 
                 <div class="footer-note">
                     Thanks for reading. If you have questions or want to chat about ML, feel free to reach out on <a href="https://linkedin.com/in/adamkulikowski">LinkedIn</a> or <a href="mailto:adamkul0126@gmail.com">email</a>.
