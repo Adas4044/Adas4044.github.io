@@ -294,15 +294,15 @@
 </head>
 <body>
     <header class="site-header">
-        <a href="index.html">← Back to Main</a>
+        <a href="../index.html">← Back to Main</a>
     </header>
 
     <div class="container">
         <!-- Background decorative images -->
         <div class="banner-container">
-            <img src="assets/ml-post-images/one.png" class="bg-decoration left" alt="">
-            <img src="assets/ml-post-images/two.png" class="bg-decoration center" alt="">
-            <img src="assets/ml-post-images/three.png" class="bg-decoration right" alt="">
+            <img src="ml-post-images/one.png" class="bg-decoration left" alt="">
+            <img src="ml-post-images/two.png" class="bg-decoration center" alt="">
+            <img src="ml-post-images/three.png" class="bg-decoration right" alt="">
         </div>
 
         <!-- Table of Contents -->
@@ -348,7 +348,7 @@
                 <p>You can play the game on Roblox here: <a href="https://www.roblox.com/games/13977123257/Kaiju-Cats" style="color: inherit; text-decoration: underline;">https://www.roblox.com/games/13977123257/Kaiju-Cats</a></p>
 
                 <div class="image-container">
-                    <img src="assets/ml-post-images/start.png" alt="Kaiju Cats Game">
+                    <img src="ml-post-images/start.png" alt="Kaiju Cats Game">
                 </div>
 
                 <h2 id="possible">Is This Even Possible?</h2>
@@ -384,7 +384,7 @@
 
                 <div class="image-container">
                     <video autoplay loop muted playsinline style="max-width: 70%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                        <source src="assets/ml-post-images/init_play.mp4" type="video/mp4">
+                        <source src="ml-post-images/init_play.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                     <div class="image-subtext">
@@ -399,7 +399,7 @@
                 <p>So I started building the simulator in Python because I figured it would be simple and easy to build. Big mistake. Part way through building it, one of my friends brought up that speed would be of the utmost importance in this project. A difference in speed of the simulator of even a few milliseconds would be compounded over the millions of iterations I would need to run. Here's a cool graph online I found showing this problem:</p>
 
                 <div class="image-container">
-                    <img src="assets/ml-post-images/programming_language_comparison.png" alt="Programming Language Speed Comparison" style="max-width: 55%;">
+                    <img src="ml-post-images/programming_language_comparison.png" alt="Programming Language Speed Comparison" style="max-width: 55%;">
                 </div>
 
                 <p>Now I don't know C well enough to build this out, but I did several undergrad classes in Java, so I felt comfortable using that to build out the simulator.</p>
@@ -409,10 +409,10 @@
                 <div class="image-container">
                     <div style="display: flex; justify-content: center; gap: 20px;">
                         <div style="flex: 1; text-align: center;">
-                            <img src="assets/ml-post-images/commands.png" alt="Commands" style="max-width: 70%; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                            <img src="ml-post-images/commands.png" alt="Commands" style="max-width: 70%; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
                         </div>
                         <div style="flex: 1; text-align: center;">
-                            <img src="assets/ml-post-images/tiles.png" alt="Tiles" style="max-width: 70%; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                            <img src="ml-post-images/tiles.png" alt="Tiles" style="max-width: 70%; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
                         </div>
                     </div>
                     <div class="image-subtext">
@@ -428,7 +428,7 @@
                 </ul>
 
                 <div class="image-container">
-                    <img src="assets/ml-post-images/active.png" alt="Active State" style="max-width: 70%;">
+                    <img src="ml-post-images/active.png" alt="Active State" style="max-width: 70%;">
                     <div class="image-subtext">
                         Snippet from the code showing how the turn simulation works
                     </div>
@@ -438,7 +438,7 @@
 
                 <div class="image-container">
                     <video autoplay loop muted playsinline style="max-width: 100%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                        <source src="assets/ml-post-images/fighting.mp4" type="video/mp4">
+                        <source src="ml-post-images/fighting.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                     <div class="image-subtext">
@@ -456,17 +456,17 @@
                 <p>And here is how I structured the input and output:</p>
 
                 <div class="image-container">
-                    <img src="assets/ml-post-images/starting_positions.png" alt="Starting Positions" style="max-width: 70%;">
+                    <img src="ml-post-images/starting_positions.png" alt="Starting Positions" style="max-width: 70%;">
                 </div>
 
                 <div class="image-container">
-                    <img src="assets/ml-post-images/movements.png" alt="Movements" style="max-width: 70%;">
+                    <img src="ml-post-images/movements.png" alt="Movements" style="max-width: 70%;">
                 </div>
 
                 <p>After running the simulator and comparing the output and intermediate steps with the real Kaiju game, tweaking the simulator a bit as I found small bugs, I ultimately ended up getting something that worked perfectly.</p>
 
                 <div class="image-container">
-                    <img src="assets/ml-post-images/pretty_terminal.png" alt="Pretty Terminal Output" style="max-width: 70%;">
+                    <img src="ml-post-images/pretty_terminal.png" alt="Pretty Terminal Output" style="max-width: 70%;">
                     <div class="image-subtext">
                         Once I got it working on basic terminal output and verified the solutions, I got Claude to add some cool color elements to make it look pretty in the terminal.
                     </div>
@@ -483,7 +483,7 @@
                 <p>So that's exactly what I did. I created a basic simulating annealing algorithm.</p>
 
                 <div class="image-container">
-                    <img src="assets/ml-post-images/SA.gif" alt="Simulated Annealing Visualization" style="max-width: 70%;">
+                    <img src="ml-post-images/SA.gif" alt="Simulated Annealing Visualization" style="max-width: 70%;">
                     <div class="image-subtext">
                         Visualization of simulated annealing (credit: https://medium.com/data-science/an-introduction-to-a-powerful-optimization-technique-simulated-annealing-87fd1e3676dd)
                     </div>
@@ -510,7 +510,7 @@
                 <p>Without any heuristic, the search wandered aimlessly through the plateau. The cooling schedule made things worse: escaping a 40k local maximum to reach the 120k+ global maximum often required temporarily dropping to 20k-30k while rearranging commands, but once the temperature dropped low enough, the algorithm refused to make these necessary sacrifices.</p>
 
                 <div class="image-container">
-                    <img src="assets/ml-post-images/cats.png" alt="Cats" style="max-width: 70%;">
+                    <img src="ml-post-images/cats.png" alt="Cats" style="max-width: 70%;">
                 </div>
 
                 <h3>The Optimization</h3>
@@ -531,7 +531,7 @@
                 <p>In essence, this new heuristic would "pull" the simulated annealing towards the solutions where the cats became closer and closer to the beds.</p>
 
                 <div class="image-container">
-                    <img src="assets/ml-post-images/arrows.png" alt="Arrows showing optimization direction" style="max-width: 90%;">
+                    <img src="ml-post-images/arrows.png" alt="Arrows showing optimization direction" style="max-width: 90%;">
                 </div>
 
                 <p>The algorithm gained a gradient to follow. It could "see" progress toward the goal even when the score was stuck. Crucially, this gave the algorithm patience during rearrangements: when modifying commands to build a better path, the score might temporarily drop, but if cats were getting closer to beds overall, the fitness would improve and the change would be accepted.</p>
@@ -548,14 +548,14 @@
                     <div style="display: flex; justify-content: center; gap: 20px;">
                         <div style="flex: 1; text-align: center;">
                             <video autoplay loop muted playsinline style="max-width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                                <source src="assets/ml-post-images/bfs.mp4" type="video/mp4">
+                                <source src="ml-post-images/bfs.mp4" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
                             <div style="margin-top: 10px; font-weight: 600;">BFS</div>
                         </div>
                         <div style="flex: 1; text-align: center;">
                             <video autoplay loop muted playsinline style="max-width: 100%; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                                <source src="assets/ml-post-images/a_.mp4" type="video/mp4">
+                                <source src="ml-post-images/a_.mp4" type="video/mp4">
                                 Your browser does not support the video tag.
                             </video>
                             <div style="margin-top: 10px; font-weight: 600;">A*</div>
@@ -573,11 +573,11 @@
                 <p>I started looking through the output of the simulated annealing. I realized for a 10 minute run, a best score was usually found in the first minute or two. Then it never changed. What was happening is that the algorithm was getting "stuck" in local maxima and never exploring the better maximas.</p>
 
                 <div class="image-container">
-                    <img src="assets/ml-post-images/SA.gif" alt="Simulated Annealing Visualization" style="max-width: 70%;">
+                    <img src="ml-post-images/SA.gif" alt="Simulated Annealing Visualization" style="max-width: 70%;">
                 </div>
 
                 <div class="image-container">
-                    <img src="assets/ml-post-images/stuck.png" alt="Algorithm Stuck in Local Maxima" style="max-width: 70%;">
+                    <img src="ml-post-images/stuck.png" alt="Algorithm Stuck in Local Maxima" style="max-width: 70%;">
                     <div class="image-subtext">
                         The algorithm would cool down and find a good solution, but only one that was locally optimal
                     </div>
@@ -586,11 +586,11 @@
                 <p>So instead of doing a full 10 minute run and letting it cool down too much to where it was exploring too many unviable paths, I did runs of smaller time frames to get more "random starts". This would allow me to explore a bunch of different paths instead of just one path, but very widely. I messed around with different times on the same map and I found 5 seconds was too short (good paths weren't fully discovered). And then 10 seconds and 15 seconds gave roughly the same results.</p>
 
                 <div class="image-container">
-                    <img src="assets/ml-post-images/not_complete.png" alt="Not Complete" style="max-width: 70%;">
+                    <img src="ml-post-images/not_complete.png" alt="Not Complete" style="max-width: 70%;">
                 </div>
 
                 <div class="image-container">
-                    <img src="assets/ml-post-images/10s.png" alt="10 Second Runs" style="max-width: 70%;">
+                    <img src="ml-post-images/10s.png" alt="10 Second Runs" style="max-width: 70%;">
                 </div>
 
                 <p>By restarting from a random point many times, the algorithm was able to get a better change of finding those 150k+ divots. By also adding multithreading (running these random points in unison on multiple CPU threads), I greatly expanded my computational power. And with that, I was getting scores that were really good. I mean really really good.</p>
@@ -599,7 +599,7 @@
 
                 <div class="image-container">
                     <video autoplay loop muted playsinline style="max-width: 100%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                        <source src="assets/ml-post-images/playthrough.mp4" type="video/mp4">
+                        <source src="ml-post-images/playthrough.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                     <div class="image-subtext">
@@ -620,70 +620,70 @@
                 <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 30px; margin: 40px 0;">
                     <div style="text-align: center;">
                         <video autoplay loop muted playsinline style="width: 100%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                            <source src="assets/ml-post-images/results/s1.mp4" type="video/mp4">
+                            <source src="ml-post-images/results/s1.mp4" type="video/mp4">
                         </video>
                         <div style="margin-top: 12px; font-size: 18px; font-weight: 600;">Score: 155,125</div>
                     </div>
 
                     <div style="text-align: center;">
                         <video autoplay loop muted playsinline style="width: 100%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                            <source src="assets/ml-post-images/results/s2.mp4" type="video/mp4">
+                            <source src="ml-post-images/results/s2.mp4" type="video/mp4">
                         </video>
                         <div style="margin-top: 12px; font-size: 18px; font-weight: 600;">Score: 185,625</div>
                     </div>
 
                     <div style="text-align: center;">
                         <video autoplay loop muted playsinline style="width: 100%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                            <source src="assets/ml-post-images/results/s3.mp4" type="video/mp4">
+                            <source src="ml-post-images/results/s3.mp4" type="video/mp4">
                         </video>
                         <div style="margin-top: 12px; font-size: 18px; font-weight: 600;">Score: 97,000</div>
                     </div>
 
                     <div style="text-align: center;">
                         <video autoplay loop muted playsinline style="width: 100%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                            <source src="assets/ml-post-images/results/s4.mp4" type="video/mp4">
+                            <source src="ml-post-images/results/s4.mp4" type="video/mp4">
                         </video>
                         <div style="margin-top: 12px; font-size: 18px; font-weight: 600;">Score: 215,000</div>
                     </div>
 
                     <div style="text-align: center;">
                         <video autoplay loop muted playsinline style="width: 100%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                            <source src="assets/ml-post-images/results/s5.mp4" type="video/mp4">
+                            <source src="ml-post-images/results/s5.mp4" type="video/mp4">
                         </video>
                         <div style="margin-top: 12px; font-size: 18px; font-weight: 600;">Score: 85,375</div>
                     </div>
 
                     <div style="text-align: center;">
                         <video autoplay loop muted playsinline style="width: 100%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                            <source src="assets/ml-post-images/results/s6.mp4" type="video/mp4">
+                            <source src="ml-post-images/results/s6.mp4" type="video/mp4">
                         </video>
                         <div style="margin-top: 12px; font-size: 18px; font-weight: 600;">Score: 197,375</div>
                     </div>
 
                     <div style="text-align: center;">
                         <video autoplay loop muted playsinline style="width: 100%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                            <source src="assets/ml-post-images/results/s7.mp4" type="video/mp4">
+                            <source src="ml-post-images/results/s7.mp4" type="video/mp4">
                         </video>
                         <div style="margin-top: 12px; font-size: 18px; font-weight: 600;">Score: 215,000</div>
                     </div>
 
                     <div style="text-align: center;">
                         <video autoplay loop muted playsinline style="width: 100%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                            <source src="assets/ml-post-images/results/s8.mp4" type="video/mp4">
+                            <source src="ml-post-images/results/s8.mp4" type="video/mp4">
                         </video>
                         <div style="margin-top: 12px; font-size: 18px; font-weight: 600;">Score: 134,625</div>
                     </div>
 
                     <div style="text-align: center;">
                         <video autoplay loop muted playsinline style="width: 100%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                            <source src="assets/ml-post-images/results/s9.mp4" type="video/mp4">
+                            <source src="ml-post-images/results/s9.mp4" type="video/mp4">
                         </video>
                         <div style="margin-top: 12px; font-size: 18px; font-weight: 600;">Score: 102,000</div>
                     </div>
 
                     <div style="text-align: center;">
                         <video autoplay loop muted playsinline style="width: 100%; border-radius: 6px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                            <source src="assets/ml-post-images/results/s10.mp4" type="video/mp4">
+                            <source src="ml-post-images/results/s10.mp4" type="video/mp4">
                         </video>
                         <div style="margin-top: 12px; font-size: 18px; font-weight: 600;">Score: 204,125</div>
                     </div>
@@ -726,7 +726,7 @@
                 <p>While I didn't end up making it through the entire Roblox process, I ended up learning a lot about ML.</p>
 
                 <div class="image-container">
-                    <img src="assets/ml-post-images/passing.png" alt="Passing" style="max-width: 70%;">
+                    <img src="ml-post-images/passing.png" alt="Passing" style="max-width: 70%;">
                 </div>
 
                 <h2>Could LLMs do better?</h2>
@@ -750,10 +750,10 @@
                 <p>Maximizing the number of powerplants one cat could get. In the very best scores, you "sacrifice" the 2 cats in the bed as fast as possible and then take the last cat and try to get the maximum score and the maximum number of powerplants with that cat. I briefly tried doing this, but with little improvements.</p>
 
                 <div style="background: #f9f9f9; border: 1px solid #e5e5e5; border-radius: 8px; padding: 30px; margin: 50px 0 30px 0; display: flex; align-items: center; gap: 25px;">
-                    <img src="./profile.JPG" alt="Adam Kulikowski" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; object-position: 15% center; flex-shrink: 0;">
+                    <img src="../profile.JPG" alt="Adam Kulikowski" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; object-position: 15% center; flex-shrink: 0;">
                     <div>
                         <p style="margin: 0 0 12px 0; font-size: 16px;">I'm <strong>Adam Kulikowski</strong>, a Computer Science student at Georgia Tech passionate about software engineering and machine learning.</p>
-                        <a href="index.html" style="color: #666; text-decoration: underline; font-size: 15px;">← Return to Main</a>
+                        <a href="../index.html" style="color: #666; text-decoration: underline; font-size: 15px;">← Return to Main</a>
                     </div>
                 </div>
 
