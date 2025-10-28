@@ -354,7 +354,7 @@
 
                 <h2 id="possible">Is This Even Possible?</h2>
 
-                <p>To start off, I had to ask myself the question of is this even possible? Upon my quick initial count there are 25-30 squares where you can place movement tiles (I later found out it's 31!). Also we are looking for the combinations here not permutations: (Left, Stomp, Right) is going to be very different from (Right, Stomp, Left) even though they use the same commands.</p>
+                <p>To start off, I had to ask myself the question of is this even possible? Upon my quick initial count there are 25-30 squares where you can place movement tiles (I later found out it's 31!). Also we are looking for the permutations here not combinations: (Left, Stomp, Right) is going to be very different from (Right, Stomp, Left) even though they use the same commands.</p>
 
                 <p>Since each tile can be one of 6 commands (up, down, left, right, stomp, powerup), that's 6 possible choices for each square. I assumed 30 just for simplicity.</p>
 
@@ -498,7 +498,7 @@
                 (3) modify an existing command<br>
                 (4) make 2-3 changes at once.</p>
 
-                <p>The acceptance criterion was pure simulated annealing: always accept better solutions, and accept worse solutions with probability e<sup>(score/temperature)</sup>. The temperature started extremely high (100,000) and cooled very slowly over millions of iterations, with an automatic restart mechanism that would reset from scratch every 10,000 iterations without improvement.</p>
+                <p>The acceptance criterion was pure simulated annealing: always accept better solutions, and accept worse solutions with probability e<sup>(ΔE/temperature)</sup> where ΔE is the change in score. The temperature started extremely high (100,000) and cooled very slowly over millions of iterations, with an automatic restart mechanism that would reset from scratch every 10,000 iterations without improvement.</p>
 
                 <p>But…..the results were consistently disappointing. The algorithm would quickly climb from 0 to around 30,000-40,000 points in the first thousand iterations, then slowly creep up to 45,000-50,000 over the next few thousand iterations, before completely flatlining. Different runs would converge to different mediocre solutions, usually in the 40k-50k range, with occasional lucky runs hitting 60k-70k.</p>
 
