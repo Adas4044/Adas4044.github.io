@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I Built Elon Musk's Not-A-Flamethrower (But Better) - Adam Kulikowski</title>
+    <link rel="canonical" href="https://adamkulik.com/blog/flamethrower">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><text y='50%' x='50%' text-anchor='middle' dominant-baseline='central' font-size='48'>🏴‍☠️</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            line-height: 1.65;
+            color: #1a1a1a;
+            background: #fff;
+        }
+
+        .site-header {
+            padding: 20px 0;
+            border-bottom: 1px solid #e5e5e5;
+            margin-bottom: 60px;
+        }
+
+        .site-header a {
+            color: #1a1a1a;
+            text-decoration: none;
+            font-size: 14px;
+            padding: 0 40px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 40px;
+            position: relative;
+        }
+
+        /* Table of Contents */
+        .toc {
+            float: left;
+            width: 200px;
+            margin-right: 60px;
+            margin-top: 80px;
+            position: sticky;
+            top: 40px;
+            z-index: 1;
+        }
+
+        .toc h3 {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #666;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .toc ul {
+            list-style: none;
+        }
+
+        .toc li {
+            margin-bottom: 10px;
+        }
+
+        .toc a {
+            color: #666;
+            text-decoration: none;
+            font-size: 13px;
+            transition: color 0.2s;
+        }
+
+        .toc a:hover {
+            color: #1a1a1a;
+        }
+
+        .toc ul ul {
+            margin-left: 16px;
+            margin-top: 8px;
+        }
+
+        .toc ul ul li {
+            margin-bottom: 6px;
+        }
+
+        /* Main Content */
+        .content {
+            margin-left: 260px;
+            max-width: 720px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .content header {
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 16px;
+            color: #1a1a1a;
+        }
+
+        .description {
+            font-size: 18px;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+
+        .meta {
+            color: #888;
+            font-size: 14px;
+        }
+
+        .meta .author {
+            margin-right: 8px;
+        }
+
+        h2 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-top: 60px;
+            margin-bottom: 20px;
+            color: #1a1a1a;
+        }
+
+        h3 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-top: 40px;
+            margin-bottom: 16px;
+            color: #1a1a1a;
+        }
+
+        p {
+            margin-bottom: 20px;
+            color: #333;
+            font-size: 16px;
+            line-height: 1.7;
+        }
+
+        strong {
+            font-weight: 600;
+        }
+
+        code {
+            background: #f5f5f5;
+            padding: 3px 6px;
+            border-radius: 3px;
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 14px;
+            color: #d73a49;
+        }
+
+        pre {
+            background: #f5f5f5;
+            padding: 16px;
+            border-radius: 4px;
+            overflow-x: auto;
+            margin: 24px 0;
+            border-left: 3px solid #ddd;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+            color: #333;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #e5e5e5;
+            margin: 50px 0;
+        }
+
+        .footer-note {
+            color: #888;
+            font-size: 14px;
+            font-style: italic;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid #e5e5e5;
+        }
+
+        .footer-note a {
+            color: #888;
+            text-decoration: none;
+        }
+
+        .footer-note a:hover {
+            text-decoration: underline;
+        }
+
+        .highlight-box {
+            background: #f5f5f5;
+            padding: 20px;
+            border-radius: 6px;
+            margin: 30px 0;
+            color: #666;
+            font-size: 15px;
+            line-height: 1.6;
+            border-left: 3px solid #ddd;
+        }
+
+        .warning-box {
+            background: #fff3cd;
+            padding: 20px;
+            border-radius: 6px;
+            margin: 30px 0;
+            color: #856404;
+            font-size: 15px;
+            line-height: 1.6;
+            border-left: 3px solid #ffc107;
+        }
+
+        .image-container {
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .image-subtext {
+            margin-top: 12px;
+            color: #666;
+            font-size: 14px;
+            font-style: italic;
+            line-height: 1.5;
+        }
+
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        li {
+            margin-bottom: 8px;
+            line-height: 1.7;
+        }
+
+        /* Responsive */
+        @media (max-width: 968px) {
+            .toc {
+                float: none;
+                width: 100%;
+                position: static;
+                margin-bottom: 40px;
+                margin-right: 0;
+            }
+
+            .content {
+                margin-left: 0;
+            }
+
+            h1 {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <a href="../index.html">← Back to Main</a>
+    </header>
+
+    <div class="container">
+        <!-- Table of Contents -->
+        <nav class="toc">
+            <h3>Table of Contents</h3>
+            <ul>
+                <li><a href="#inspiration">Parts</a></li>
+                <li><a href="#research">Build</a></li>
+                <li><a href="#design">The Challenges</a></li>
+                <li><a href="#safety">Is This Legal?</a></li>
+            </ul>
+        </nav>
+
+        <!-- Main Content -->
+        <article class="content">
+            <header>
+                <h1>I Built Elon Musk's Not-A-Flamethrower (But Better)</h1>
+
+                <div class="description">
+                    Armed with a Dremel, random screwdrivers, and determination, I built my own version of the Boring Company's Not-A-Flamethrower
+                </div>
+
+                <div class="meta">
+                    <span class="author"><a href="../index.html" style="color: inherit; text-decoration: none;">Adam Kulikowski</a></span>
+                    <time datetime="2026-03-09">March 9, 2026</time>
+                </div>
+            </header>
+
+            <div class="article-content">
+                <p>I built Elon Musk's Not-A-Flamethrower but I made it better.</p>
+
+                <p>So you might be wondering how did I get this crazy idea?</p>
+
+                <p>…</p>
+
+                <p>I've always thought flamethrowers were super cool and I've been building model ones since high school. My dream was to always own a Not-A-Flamethrower, a limited exclusive of Elon Musk's Boring company (<a href="https://en.wikipedia.org/wiki/The_Boring_Company" style="color: inherit; text-decoration: underline;">link</a>), but with current prices in the thousands of dollars, they were simply too expensive for me.</p>
+
+                <p>So I decided to build my own.</p>
+
+                <p>The process ended up taking way longer and being way more painful than I expected (more on that later).</p>
+
+                <p>Armed with a Dremel, random screwdrivers from my friends, and all the parts (which I soon realized I was missing some), I began to build a flamethrower.</p>
+
+                <p>I want this to serve as a guide for any bright eyed kids who also want to build their own Not A Flamethrower, so here's the step by step guide to how I built it.</p>
+
+                <div class="warning-box">
+                    <strong>Legal & Safety Disclaimer:</strong><br>
+                    This project was completed in full compliance with local laws and regulations. Flamethrowers are legal to own in most U.S. states but may be restricted in your area. Always check local laws before attempting any similar project. This article is for educational purposes only. Do not attempt to build or operate a flamethrower without proper training, safety equipment, and legal authorization.
+                </div>
+
+                <h2 id="inspiration">1. Parts</h2>
+
+                <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+                    <thead>
+                        <tr style="border-bottom: 2px solid #e5e5e5;">
+                            <th style="text-align: left; padding: 12px 8px; font-weight: 600; color: #666; font-size: 14px;">Item</th>
+                            <th style="text-align: right; padding: 12px 8px; font-weight: 600; color: #666; font-size: 14px;">Price</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-bottom: 1px solid #f0f0f0;">
+                            <td style="padding: 12px 8px;"><a href="https://www.evike.com/products/68300/" style="color: inherit; text-decoration: underline;">Evike CSI S.T.A.R. XR-5 FG-1508 Advanced Airsoft Battle Rifle (Color: Trooper White)</a></td>
+                            <td style="padding: 12px 8px; text-align: right; white-space: nowrap;">$159</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #f0f0f0;">
+                            <td style="padding: 12px 8px;"><a href="https://www.amazon.com/gp/product/B00448JJXI/ref=as_li_ss_tl?tag=bloveinc-20&ie=UTF8&psc=1&linkId=11c40df5dc6b33e1e468d0337952fa84&geniuslink=true" style="color: inherit; text-decoration: underline;">WORTHINGTON CYLINDER 309336 Series Extension Hose Kit for MapPro & Propane Torches</a></td>
+                            <td style="padding: 12px 8px; text-align: right; white-space: nowrap;">$26</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #f0f0f0;">
+                            <td style="padding: 12px 8px;"><a href="https://www.amazon.com/Button-Igniter-Propane-Melter-Roofing/dp/B01KH6L32K/ref=as_li_ss_tl?tag=bloveinc-20&keywords=propane%20Torch%20With%20Push%20Button%20Igniter&qid=1582827411&sr=8-12&linkId=133959ff4a0c603ef3af8ec88af7b6f4&geniuslink=true" style="color: inherit; text-decoration: underline;">Push Button Igniter Propane Torch</a></td>
+                            <td style="padding: 12px 8px; text-align: right; white-space: nowrap;">$67</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #f0f0f0;">
+                            <td style="padding: 12px 8px;"><a href="https://www.amazon.com/gp/product/B01K2BOUN4/ref=as_li_ss_tl?tag=bloveinc-20&ie=UTF8&linkId=114f74601c1d165c05bf910464425304&geniuslink=true&th=1" style="color: inherit; text-decoration: underline;">Matte Black Bike Water Bottle Cage</a></td>
+                            <td style="padding: 12px 8px; text-align: right; white-space: nowrap;">$12</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #f0f0f0;">
+                            <td style="padding: 12px 8px;"><a href="https://www.homedepot.com/pep/Bernzomatic-14-1-oz-Propane-Hand-Torch-Cylinder-TX9/202044700?mi_internal=false&mi_position=1&cm_mmc=ecc-_-BODFS_DELIVERY_ON_ITS_WAY-_-V1_M1_CA-_-Unica_recommendationPod_1&ecc_ord=WH21998539&em_id=887a871343b551b4bc3c6d13c2a5c383af6e5a2153c8f1f5024930db72d4af21&mi_ign=BODFS_DELIVERY_ON_ITS_WAY_20260129&mi_cmp=5d44cf04bc264dd3~13353136~~~~~07_20_2021_08_38_19_883009~&mi_sc=t" style="color: inherit; text-decoration: underline;">Bernzomatic 14.1 oz Propane Cylinder Steel 1 pc Propane</a></td>
+                            <td style="padding: 12px 8px; text-align: right; white-space: nowrap;">$6</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #f0f0f0;">
+                            <td style="padding: 12px 8px;"><a href="https://www.grainger.com/product/6AFP4?gucid=N:N:FPL:Free:GGL:CSM-1946:tew63h3:20501231" style="color: inherit; text-decoration: underline;">1/8" Hose ID / Hose Barb to 1/8" Male NPT MIP MPT Straight Brass Fitting</a></td>
+                            <td style="padding: 12px 8px; text-align: right; white-space: nowrap;">$4</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #f0f0f0;">
+                            <td style="padding: 12px 8px;"><a href="https://www.amazon.com/Koehler-Enterprises-KE4BX-Piece-Clamp/dp/B00XAK6RU4/ref=as_li_ss_tl?tag=bloveinc-20&keywords=1%2F8%2Binch%2Bhose%2Bclamp&qid=1582827528&sr=8-1&linkId=b869f2c9752f06ebee6b3014db52595b&geniuslink=true&th=1" style="color: inherit; text-decoration: underline;">Koehler Enterprises KE4BX 10 Piece Hose Clamp Box (Micro Size 4), silver</a></td>
+                            <td style="padding: 12px 8px; text-align: right; white-space: nowrap;">$10</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #f0f0f0;">
+                            <td style="padding: 12px 8px;"><a href="https://www.walmart.com/ip/LARSEN-SUPPLY-CO-INC-11-1000-1-2x1429-Blue-Tef-Tape/159731506" style="color: inherit; text-decoration: underline;">Mill-Rose 70885 Blue Monster PTFE Pipe Thread Sealant Tape</a></td>
+                            <td style="padding: 12px 8px; text-align: right; white-space: nowrap;">$10</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #f0f0f0;">
+                            <td style="padding: 12px 8px;">Dremel 3000-2/28 Variable Speed Rotary Tool Kit (with disk and metal cutting tools)</td>
+                            <td style="padding: 12px 8px; text-align: right; white-space: nowrap;">$40-100</td>
+                        </tr>
+                        <tr style="border-bottom: 1px solid #f0f0f0;">
+                            <td style="padding: 12px 8px;">Drill and Drill Bits</td>
+                            <td style="padding: 12px 8px; text-align: right; white-space: nowrap;">$40-100</td>
+                        </tr>
+                        <tr style="border-top: 2px solid #e5e5e5; font-weight: 600;">
+                            <td style="padding: 12px 8px;">Total (assuming you have Dremel & Drill)</td>
+                            <td style="padding: 12px 8px; text-align: right; white-space: nowrap;">$294</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <h2 id="research">2. Build</h2>
+
+                <h3>Step 1: Disassemble the Airsoft Shell</h3>
+
+                <p>I mean take EVERYTHING apart. Every screw, every small part. You might need several wrenches and screwdrivers so a kit is really good for this step.</p>
+
+                <h3>Step 2: Take Apart the Propane Torch</h3>
+
+                <p>This part ended up being super challenging. For some reason the manufacturer of this propane torch tried to make this thing impossible to disassemble. It took the full force of me and my friend who hits the gym daily to get this disassembled. I suspect this difficulty came from the sealant tape used on all the seals which often becomes really hard to take off.</p>
+
+                <h3>Step 3: Straighten the Pipe of the Propane Torch</h3>
+
+                <p>This tube is quite strong so I would recommend using a vice. With a vice it bent to shape quite easily.</p>
+
+                <h3>Step 4: Drill the Hole for the Valve</h3>
+
+                <p>This valve should sit roughly halfway between the mounting brackets on the backside of the airsoft. Make sure the hole can fit the entirety of the valve. Also leave some wiggle room for adjustments later.</p>
+
+                <h3>Step 5: Drill a Hole for the Trigger</h3>
+
+                <p>The hole for the airsoft trigger is too small for the trigger we will create from the propane torch so we need to drill a bigger one.</p>
+
+                <h3>Step 6: Modify the Trigger Mechanism</h3>
+
+                <p>Cut the outside edges of the original trigger mechanism. Then using pliers bend it into shape.</p>
+
+                <h3>Step 7: Cut the Front Section for the Ignition Switch</h3>
+
+                <p>You will have to drill holes in the black plastic plate on the top as well as on the side.</p>
+
+                <h3>Step 8: Drill Through the Metal Plate at the Back</h3>
+
+                <p>This is going to require a very long drill bit. Make sure there are no sharp edges. Pad the cut part with tape just to make sure that it's super smooth and there is no chance for the gas value to get caught.</p>
+
+                <h3>Step 9: Fit Everything Through on the Trigger</h3>
+
+                <h3>Step 10: Screw on the Metal Components</h3>
+
+                <p>Add thread tape and make sure it is really tight on all the seals.</p>
+
+                <h3>Step 11: Final Assembly</h3>
+
+                <p>Screw on the top.</p>
+
+                <p>Throughout the process, not only did I destroy my Dremel, I coated my entire room with dust. Metal shavings everywhere. Plastic fragments in places I'm still finding them.</p>
+
+                <h2 id="design">The Challenges</h2>
+
+                <p>The build took way longer than expected. What I thought would be a weekend project turned into nearly two weeks of work. Between waiting for parts I didn't realize I needed, breaking tools, and having to redo steps that didn't work the first time, it was a test of patience.</p>
+
+                <p>But the end result? Totally worth it.</p>
+
+
+
+
+                <h2 id="safety">Is This Legal?</h2>
+
+                <p>P.S. If you are wondering if this is legal. It is. It is not technically a flamethrower. At its core it is just a propane torch with a fancy shell. No different than what you would use to kill weeds or melt ice.</p>
+
+                <p>That said, always check your local laws and regulations before building or operating anything that produces fire. Use common sense and prioritize safety.</p>
+
+                <div style="background: #f9f9f9; border: 1px solid #e5e5e5; border-radius: 8px; padding: 30px; margin: 50px 0 30px 0; display: flex; align-items: center; gap: 25px;">
+                    <img src="../profile.JPG" alt="Adam Kulikowski" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; object-position: 15% center; flex-shrink: 0;">
+                    <div>
+                        <p style="margin: 0 0 12px 0; font-size: 16px;">I'm <strong>Adam Kulikowski</strong>, a Computer Science student at Georgia Tech passionate about software engineering, machine learning, and occasionally building things that make fire.</p>
+                        <a href="../index.html" style="color: #666; text-decoration: underline; font-size: 15px;">← Return to Main</a>
+                    </div>
+                </div>
+
+                <div class="footer-note">
+                    Thanks for reading. If you have questions about building your own or want to chat about maker projects, feel free to reach out on <a href="https://linkedin.com/in/adamkulikowski">LinkedIn</a> or <a href="mailto:adamkul0126@gmail.com">email</a>.
+                </div>
+            </div>
+        </article>
+    </div>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-S0SMWRSS73"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-S0SMWRSS73');
+    </script>
+</body>
+</html>
