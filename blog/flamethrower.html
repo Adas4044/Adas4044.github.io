@@ -242,6 +242,91 @@
             line-height: 1.5;
         }
 
+        /* Carousel */
+        .carousel {
+            position: relative;
+            max-width: 100%;
+            margin: 30px 0;
+        }
+
+        .carousel-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .carousel-slides {
+            display: flex;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .carousel-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+            z-index: 2;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        .carousel-button:hover {
+            background: rgba(255, 255, 255, 1);
+        }
+
+        .carousel-button.prev {
+            left: 10px;
+        }
+
+        .carousel-button.next {
+            right: 10px;
+        }
+
+        .carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 15px;
+        }
+
+        .carousel-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #ddd;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            transition: background 0.2s;
+        }
+
+        .carousel-dot.active {
+            background: #666;
+        }
+
         ul, ol {
             margin-left: 20px;
             margin-bottom: 20px;
@@ -302,7 +387,7 @@
 
                 <div class="meta">
                     <span class="author"><a href="../index.html" style="color: inherit; text-decoration: none;">Adam Kulikowski</a></span>
-                    <time datetime="2026-03-09">March 9, 2026</time>
+                    <time datetime="2026-04-15">April 15, 2026</time>
                 </div>
             </header>
 
@@ -317,17 +402,15 @@
 
                 <p>…</p>
 
-                <p>I've always thought flamethrowers were super cool and I've been building model ones since high school. My dream was to always own a Not-A-Flamethrower, a limited exclusive of Elon Musk's Boring company (<a href="https://en.wikipedia.org/wiki/The_Boring_Company" style="color: inherit; text-decoration: underline;">link</a>), but with current prices $1000+, they were simply too expensive for me.</p>
+                <p>I've always thought flamethrowers were super cool and I've been building model ones since high school. My dream was to always own a Not-A-Flamethrower, a limited exclusive of Elon Musk's Boring company (<a href="https://www.boringcompany.com/not-a-flamethrower" style="color: inherit; text-decoration: underline;">link</a>), but with current prices $1000+, they were simply too expensive for me.</p>
 
                 <p>So I decided to build my own.</p>
 
-                <p>The process ended up taking way longer and being way more painful than I expected (more on that later).</p>
-
-                <p>Armed with a Dremel, random screwdrivers from my friends, and all the parts (which I soon realized I was missing some), I began to build a flamethrower.</p>
+                <p>The process ended up taking way longer and being way more painful than I expected (more on that later). Armed with a Dremel, random screwdrivers from my friends, and all the parts (which I soon realized I was missing some), I began to build a flamethrower.</p>
 
                 <div class="warning-box">
                     <strong>Safety Warning:</strong><br>
-                    This project involves power tools, metal cutting, and drilling. Always wear proper safety equipment including eye protection and gloves. Power tools can cause serious injury if used improperly. Work in a well-ventilated area and follow all manufacturer safety guidelines.
+                    This project involves power tools, metal cutting, and drilling. Always be careful when using these tools to avoid personal injury.
                 </div>
 
                 <h2 id="inspiration">1. Parts</h2>
@@ -437,7 +520,12 @@
 
                 <h3>Step 3: Straighten the Pipe of the Propane Torch</h3>
 
-                <p>This tube is quite strong so I would recommend using a vice. With a vice it bent to shape quite easily.</p>
+                <p>The inner pipe is quite strong so I would recommend using a vice. Carefully straight it out. Using a vice will make this step quite easy.</p>
+
+                <div class="image-container">
+                    <img src="flamethrower-images/vice_cropped.png" alt="Using a vice to straighten the pipe" style="max-width: 60%;">
+                    <div class="image-subtext">Using a vice to straighten the pipe</div>
+                </div>
 
                 <h3>Step 4: Drill a V Shape Hole into the Propane Torch Ignition Trigger</h3>
 
@@ -491,11 +579,26 @@
                     <div class="image-subtext">Drilling pics</div>
                 </div>
 
-                <div class="image-container">
-                    <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
-                        <img src="flamethrower-images/11.jpg" alt="What it should look like now" style="max-width: 30%; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                        <img src="flamethrower-images/12.jpg" alt="What it should look like now" style="max-width: 30%; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-                        <img src="flamethrower-images/13.jpg" alt="What it should look like now" style="max-width: 30%; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                <div class="carousel">
+                    <div class="carousel-container">
+                        <div class="carousel-slides" id="carousel1">
+                            <div class="carousel-slide">
+                                <img src="flamethrower-images/11.jpg" alt="What it should look like now">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="flamethrower-images/12.jpg" alt="What it should look like now">
+                            </div>
+                            <div class="carousel-slide">
+                                <img src="flamethrower-images/13.jpg" alt="What it should look like now">
+                            </div>
+                        </div>
+                        <button class="carousel-button prev" onclick="moveCarousel('carousel1', -1)">‹</button>
+                        <button class="carousel-button next" onclick="moveCarousel('carousel1', 1)">›</button>
+                    </div>
+                    <div class="carousel-dots">
+                        <button class="carousel-dot active" onclick="goToSlide('carousel1', 0)"></button>
+                        <button class="carousel-dot" onclick="goToSlide('carousel1', 1)"></button>
+                        <button class="carousel-dot" onclick="goToSlide('carousel1', 2)"></button>
                     </div>
                     <div class="image-subtext">Pics of what it should look like now</div>
                 </div>
@@ -531,7 +634,7 @@
                     </div>
                 </div>
 
-                <p>I wanted to fix this ergonomic flaw by adding an adjustable stock, similar to what you'd find on higher-end airsoft rifles, that could slide forward and backward to fit different users. The problem was that the internal metal pipe from the propane torch ran straight through where the stock adjustment mechanism would normally go. If I tried to slide the stock, it would collide with the fuel hose.</p>
+                <p>I wanted to fix this ergonomic flaw by adding an adjustable stock, similar to what you'd find on higher-end airsoft rifles, that could slide forward and backward to fit different users. With how expensive the not-a-flamethrower is, I'm surprise Elon did not consider this. The problem was that the internal metal pipe from the propane torch ran straight through where the stock adjustment mechanism would normally go. If I tried to slide the stock, it would collide with the fuel hose.</p>
 
                 <p>My solution was to drill an angled cut through the back connector pipe and then drill a hole through the outer plastic on the airsoft. This would allow the hose to thread through while still maintaining the structural rigidity of the gun. By routing the hose through the pipe itself, I could preserve the adjustable stock functionality without compromising the fuel delivery system.</p>
 
@@ -564,7 +667,7 @@
                 </div>
 
                 <div class="highlight-box">
-                    <strong>Note:</strong> Final design of the sliding mechanism with the hose attached
+                    Final design of the sliding mechanism with the hose attached
                 </div>
 
                 <div class="image-container">
@@ -612,14 +715,19 @@
                     <div class="image-subtext">Drill the bike holder onto the gun and secure with nuts to hold the propane cylinder</div>
                 </div>
 
-
-                <p>Throughout the process, not only did I destroy my Dremel, I coated my entire room with dust. Metal shavings everywhere. Plastic fragments in places I'm still finding them.</p>
+                <div class="image-container">
+                    <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                        <img src="flamethrower-images/bike_holder1.jpg" alt="Bike holder attachment" style="max-width: 45%; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                        <img src="flamethrower-images/bike_holder2.jpg" alt="Bike holder attachment" style="max-width: 45%; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                    </div>
+                    <div class="image-subtext">Bike holder installation details</div>
+                </div>
 
                 <h2 id="design">The Challenges</h2>
 
-                <p>The build took way longer than expected. What I thought would be a weekend project turned into nearly two weeks of work. Between waiting for parts I didn't realize I needed, breaking tools, and having to redo steps that didn't work the first time, it was a test of patience.</p>
+                <p>The build took way longer than expected. What I thought would be a weekend project turned into nearly two weeks of work. Between waiting for parts I didn't realize I needed, breaking tools, and having to redo steps that didn't work the first time, it was a test of patience. Throughout the process, I ended up destroying my dremel once through using improper cutting tools which caused plastic to melt into the drill head, breaking a few drill bits, and nearly forgetting crucial parts in the store of home depot (I am catastrophically good at losing things). But this project really taught me a lot about thinking ahead as to what parts to buy and how to keep the build organized throughout the process. And the cleanup process was definitely a challenge. I'm still finding plastic fragments in random places.</p>
 
-                <p>But the end result? Totally worth it.</p>
+                <p>The end result looked really good though. It was super satisfying to take something I'd always admired as a kid but couldn't afford, and build it in a way that was better and gave more functionality to the user.</p>
 
                 <div class="image-container">
                     <img src="flamethrower-images/final.jpg" alt="Final build" style="max-width: 85%;">
@@ -648,9 +756,7 @@
 
                 <h2 id="safety">Is This Legal?</h2>
 
-                <p>P.S. If you are wondering if this is legal. It is. It is not technically a flamethrower. At its core it is just a propane torch with a fancy shell. No different than what you would use to kill weeds or melt ice.</p>
-
-                <p>That said, always check your local laws and regulations before building or operating anything that produces fire. Use common sense and prioritize safety.</p>
+                <p>P.S. If you are wondering if this is legal. It is. It is not technically a flamethrower. At its core it is just a propane torch with a fancy shell. Similar to what you would use to kill weeds or melt ice. However, as with any device that produces open flames, caution is extremely important and always having a fire extinguisher nearby is a good idea. Always use common sense and prioritize safety.</p>
 
                 <div style="background: #f9f9f9; border: 1px solid #e5e5e5; border-radius: 8px; padding: 30px; margin: 50px 0 30px 0; display: flex; align-items: center; gap: 25px;">
                     <img src="../profile.JPG" alt="Adam Kulikowski" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; object-position: 15% center; flex-shrink: 0;">
@@ -675,6 +781,50 @@
       gtag('js', new Date());
 
       gtag('config', 'G-S0SMWRSS73');
+
+      // Carousel functionality
+      const carouselStates = {};
+
+      function initCarousel(carouselId) {
+        if (!carouselStates[carouselId]) {
+          carouselStates[carouselId] = { currentSlide: 0 };
+        }
+      }
+
+      function moveCarousel(carouselId, direction) {
+        initCarousel(carouselId);
+        const carousel = document.getElementById(carouselId);
+        const slides = carousel.querySelectorAll('.carousel-slide');
+        const dots = carousel.parentElement.parentElement.querySelectorAll('.carousel-dot');
+
+        carouselStates[carouselId].currentSlide += direction;
+
+        if (carouselStates[carouselId].currentSlide < 0) {
+          carouselStates[carouselId].currentSlide = slides.length - 1;
+        } else if (carouselStates[carouselId].currentSlide >= slides.length) {
+          carouselStates[carouselId].currentSlide = 0;
+        }
+
+        updateCarousel(carouselId, carousel, dots);
+      }
+
+      function goToSlide(carouselId, slideIndex) {
+        initCarousel(carouselId);
+        const carousel = document.getElementById(carouselId);
+        const dots = carousel.parentElement.parentElement.querySelectorAll('.carousel-dot');
+
+        carouselStates[carouselId].currentSlide = slideIndex;
+        updateCarousel(carouselId, carousel, dots);
+      }
+
+      function updateCarousel(carouselId, carousel, dots) {
+        const slideWidth = carousel.querySelector('.carousel-slide').offsetWidth;
+        carousel.style.transform = `translateX(-${carouselStates[carouselId].currentSlide * slideWidth}px)`;
+
+        dots.forEach((dot, index) => {
+          dot.classList.toggle('active', index === carouselStates[carouselId].currentSlide);
+        });
+      }
     </script>
 </body>
 </html>
